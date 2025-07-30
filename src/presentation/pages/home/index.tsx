@@ -6,7 +6,7 @@ export const HomePage = () => {
   return (
     <div className={styles.containerPage}>
       <Title.Root size="medium">
-        <Title.Text>HOME</Title.Text>
+        {/* <Title.Text>HOME</Title.Text> */}
       </Title.Root>
     </div>
   );

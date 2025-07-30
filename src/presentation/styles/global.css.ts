@@ -32,8 +32,8 @@ globalStyle('html', {
 });
 
 globalStyle('body', {
-  width: '1%',
-  height: '110vh',
+  width: '100%',
+  height: '100vh',
   fontFamily: theme.fonts.primary,
   WebkitFontSmoothing: 'antialiased',
   backgroundColor: theme.colors.background,

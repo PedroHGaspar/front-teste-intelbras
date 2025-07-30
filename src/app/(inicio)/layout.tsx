@@ -15,7 +15,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         <Header.Root>
           <Header.LeftGroup className={styles.headerGroupStyles}>
             <Title.Root size="small">
-              <Title.Text>Centrais </Title.Text>
+              {/* <Title.Text>Centrais </Title.Text> */}
             </Title.Root>
           </Header.LeftGroup>
         </Header.Root>

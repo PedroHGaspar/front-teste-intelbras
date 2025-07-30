@@ -6,7 +6,7 @@ export const sidebarRootStyle = style({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  width: '10.8rem',
+  width: '13rem',
   transition: 'width 0.2s ease-in-out',
   zIndex: 1,
 
@@ -54,6 +54,7 @@ export const sideBarDefenseLogoSmallStyle = style({
   height: '3.5rem',
   marginTop: '1rem',
   display: 'flex',
+  justifyContent: 'center',
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
@@ -63,14 +64,14 @@ export const sideBarDefenseLogoSmallStyle = style({
 });
 
 export const sideBarTitleHeaderStyle = style({
-  fontSize: '0.9rem',
-  color: theme.colors.primaryForeground,
+  display: 'none',
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      display: 'none',
+      display: 'block',
     },
   },
+
 });
 
 export const sideBarFooterStyle = style({
