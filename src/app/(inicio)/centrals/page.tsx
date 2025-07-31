@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useCentrals } from "../../presentation/components/utils/services/useCentrals";
+import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
 
-import { ChevronLeftIcon } from "../../presentation/components/icons/chevron-left";
-import { ChevronRightIcon } from "../../presentation/components/icons/chevron-right";
+import { ChevronLeftIcon } from "../../../presentation/components/icons/chevron-left";
+import { ChevronRightIcon } from "../../../presentation/components/icons/chevron-right";
 
-import * as style from "../../presentation/pages/home/styles/centrals-page.css";
+import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
 export default function CentralsPage() {
     const [page, setPage] = useState(1);
@@ -52,10 +52,10 @@ export default function CentralsPage() {
                     onClick={previous_page}
                     disabled={page === 1}
                 >
-                    <ChevronLeftIcon customSize={""} />
+                    <ChevronLeftIcon customSize={"10"} />
                 </button>
                 <button className={style.botao_paginacao} onClick={next_page}>
-                    <ChevronRightIcon customSize={""} />
+                    <ChevronRightIcon customSize={"10"} />
                 </button>
             </div>
         </div>

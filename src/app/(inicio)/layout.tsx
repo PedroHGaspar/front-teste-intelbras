@@ -19,8 +19,8 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
             </Title.Root>
           </Header.LeftGroup>
         </Header.Root>
-        {children}
       </div> */}
+        {children}
     </main>
   );
 }
