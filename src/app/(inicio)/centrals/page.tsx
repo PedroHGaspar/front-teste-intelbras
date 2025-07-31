@@ -1,4 +1,4 @@
-"use client";
+"use client"; // ← ESSA LINHA É OBRIGATÓRIA
 
 import { useState } from "react";
 import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
@@ -8,11 +8,18 @@ import { ChevronRightIcon } from "../../../presentation/components/icons/chevron
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
+const LIMIT = 5;
+
 export default function CentralsPage() {
     const [page, setPage] = useState(1);
-    const { data, isLoading, isError } = useCentrals(page);
+    const { data, isLoading, isError } = useCentrals(page, LIMIT);
 
-    const next_page = () => setPage((prev) => prev + 1);
+    const totalPages = data ? Math.ceil(data.total / LIMIT) : 1;
+
+    const next_page = () => {
+        if (page < totalPages) setPage((prev) => prev + 1);
+    };
+
     const previous_page = () => setPage((prev) => Math.max(prev - 1, 1));
 
     if (isLoading) return <p>Carregando centrais...</p>;
@@ -35,8 +42,8 @@ export default function CentralsPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data?.map((central) => (
-                        <tr key={central.id} className={`${style.linha_tr_tabela}`}>
+                    {data?.data.map((central) => (
+                        <tr key={central.id} className={style.linha_tr_tabela}>
                             <td className={style.colunas_tabela}>{central.id}</td>
                             <td className={style.colunas_tabela}>{central.name}</td>
                             <td className={style.colunas_tabela_modeloId}>{central.modelId}</td>
@@ -54,7 +61,12 @@ export default function CentralsPage() {
                 >
                     <ChevronLeftIcon customSize={"10"} />
                 </button>
-                <button className={style.botao_paginacao} onClick={next_page}>
+                <span style={{ margin: "0 8px" }}>{page} / {totalPages}</span>
+                <button
+                    className={style.botao_paginacao}
+                    onClick={next_page}
+                    disabled={page >= totalPages}
+                >
                     <ChevronRightIcon customSize={"10"} />
                 </button>
             </div>

@@ -7,12 +7,25 @@ export type Central = {
     modelId: number;
 };
 
+type CentralsResponse = {
+    data: Central[];
+    total: number;
+};
+
 export function useCentrals(page: number, limit: number = 5) {
-    return useQuery<Central[]>({
+    return useQuery<CentralsResponse>({
         queryKey: ["centrals", page],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3333/centrals?_page=${page}&_limit=${limit}`);
-            return response.json();
+            const [dataRes, totalRes] = await Promise.all([
+                fetch(`http://localhost:5000/centrals?_page=${page}&_limit=${limit}`),
+                fetch("http://localhost:5000/centrals")
+            ]);
+
+            const data = await dataRes.json();
+            const totalData = await totalRes.json();
+            const total = totalData.length;
+
+            return { data, total };
         },
     });
 }
