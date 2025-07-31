@@ -11,7 +11,7 @@ export const sidebarRootStyle = style({
   zIndex: 1,
 
   ':hover': {
-    width: '32rem',
+    width: '12vw',
   },
 });
 
@@ -39,10 +39,10 @@ export const sideBarDefenseLogoStyle = style({
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {
-      width: '18rem',
-      height: '5rem',
+      width: '50%',
+      height: '50%',
       display: 'inline-flex',
-      margin: '2.2rem 0 0 2.8rem',
+      margin: '0 auto',
       opacity: 1,
       transition: 'opacity 0.5s ease-in-out',
     },
@@ -64,7 +64,10 @@ export const sideBarDefenseLogoSmallStyle = style({
 });
 
 export const sideBarTitleHeaderStyle = style({
-  display: 'none',
+  // display: 'none',
+  width: '100%',
+  textAlign: 'center',
+  fontSize: '12px',
 
   selectors: {
     [`${sidebarRootStyle}:hover &`]: {

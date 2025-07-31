@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 
-type Central = {
+export type Central = {
     id: number;
     name: string;
     mac: string;
     modelId: number;
 };
 
-export function useCentrals() {
+export function useCentrals(page: number, limit: number = 5) {
     return useQuery<Central[]>({
-        queryKey: ["centrals"],
+        queryKey: ["centrals", page],
         queryFn: async () => {
-            let response = await fetch("http://localhost:3333/centrals");
+            const response = await fetch(`http://localhost:3333/centrals?_page=${page}&_limit=${limit}`);
             return response.json();
         },
     });
