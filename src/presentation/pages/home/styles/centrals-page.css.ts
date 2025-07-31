@@ -26,7 +26,17 @@ export const header_tabela = style({
 export const linha_tr_tabela = style({
     borderBottom: "1px solid #0d1116",
     transition: "background-color 0.2s ease-in-out",
+
+    selectors: {
+        "&:nth-child(even)": {
+            backgroundColor: "#161c23",
+        },
+        "&:nth-child(odd)": {
+            backgroundColor: "#1c242e",
+        },
+    },
 });
+
 
 export const colunas_tabela = style({
     padding: "1rem",
@@ -66,4 +76,23 @@ export const botao_paginacao = style({
             opacity: 0.5,
         },
     },
+});
+
+export const container_select = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    fontSize: "12px",
+});
+
+export const select_estilizado = style({
+    padding: "0.5rem",
+    fontSize: "12px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    backgroundColor: "#0d1116",
+    color: "#fff",
+    cursor: "pointer",
+    borderColor: "#888",
+    transition: "background 0.2s ease-in-out",
 });

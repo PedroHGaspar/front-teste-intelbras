@@ -1,4 +1,4 @@
-"use client"; // ← ESSA LINHA É OBRIGATÓRIA
+"use client";
 
 import { useState } from "react";
 import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
@@ -8,13 +8,13 @@ import { ChevronRightIcon } from "../../../presentation/components/icons/chevron
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
-const LIMIT = 5;
-
 export default function CentralsPage() {
     const [page, setPage] = useState(1);
-    const { data, isLoading, isError } = useCentrals(page, LIMIT);
+    const [limit, setLimit] = useState(5);
 
-    const totalPages = data ? Math.ceil(data.total / LIMIT) : 1;
+    const { data } = useCentrals(page, limit);
+
+    const totalPages = data ? Math.ceil(data.total / limit) : 1;
 
     const next_page = () => {
         if (page < totalPages) setPage((prev) => prev + 1);
@@ -22,15 +22,32 @@ export default function CentralsPage() {
 
     const previous_page = () => setPage((prev) => Math.max(prev - 1, 1));
 
-    if (isLoading) return <p>Carregando centrais...</p>;
-    if (isError) return <p>Erro ao carregar centrais.</p>;
+    const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setLimit(Number(e.target.value));
+        setPage(1);
+    };
+
 
     return (
         <div className={style.div_pai}>
             <div>
                 <h1>Centrais</h1>
-                <p className={style.paragrafo_gerenciamento}>Gerenciamento de Centrais – Página {page}</p>
+                <p className={style.paragrafo_gerenciamento}>
+                    Gerenciamento de Centrais
+                </p>
             </div>
+
+            <div className={style.container_select}>
+                <label>Itens por página:</label>
+                <select value={limit} onChange={handleLimitChange} className={style.select_estilizado}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                    <option value={20}>20</option>
+                </select>
+            </div>
+
+
 
             <table className={style.table}>
                 <thead>
@@ -54,19 +71,11 @@ export default function CentralsPage() {
             </table>
 
             <div className={style.container_paginacao}>
-                <button
-                    className={style.botao_paginacao}
-                    onClick={previous_page}
-                    disabled={page === 1}
-                >
+                <button className={style.botao_paginacao} onClick={previous_page} disabled={page === 1}>
                     <ChevronLeftIcon customSize={"10"} />
                 </button>
-                <span style={{ margin: "0 8px" }}>{page} / {totalPages}</span>
-                <button
-                    className={style.botao_paginacao}
-                    onClick={next_page}
-                    disabled={page >= totalPages}
-                >
+                <span style={{ fontSize: '10px' }}>{page} / {totalPages}</span>
+                <button className={style.botao_paginacao} onClick={next_page} disabled={page >= totalPages}>
                     <ChevronRightIcon customSize={"10"} />
                 </button>
             </div>

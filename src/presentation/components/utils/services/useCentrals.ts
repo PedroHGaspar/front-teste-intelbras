@@ -14,7 +14,7 @@ type CentralsResponse = {
 
 export function useCentrals(page: number, limit: number = 5) {
     return useQuery<CentralsResponse>({
-        queryKey: ["centrals", page],
+        queryKey: ["centrals", page, limit],
         queryFn: async () => {
             const [dataRes, totalRes] = await Promise.all([
                 fetch(`http://localhost:5000/centrals?_page=${page}&_limit=${limit}`),
