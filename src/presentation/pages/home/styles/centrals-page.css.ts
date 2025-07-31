@@ -110,11 +110,94 @@ export const input_busca = style({
 });
 
 export const paginacao_busca = style({
-    display:"flex",
-    justifyContent:"space-between"
+    display: "flex",
+    justifyContent: "space-between"
 })
 
 export const titulo_subtitulo = style({
-    textAlign:"center"
+    textAlign: "center"
 })
 
+export const botao_icone_excluir = style({
+    background: "none",
+    color: "#FFF",
+    cursor: "pointer",
+})
+
+
+export const modal_overlay = style({
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    opacity: 0,
+    visibility: "hidden",
+    transition: "opacity 0.2s ease, visibility 0.2s ease",
+    zIndex: 1000,
+});
+
+export const modal_aberto = style({
+    opacity: 1,
+    visibility: "visible",
+});
+
+export const modal_conteudo = style({
+    width: "400px",
+    height: "auto",
+    backgroundColor: "#1c242e",
+    padding: "20px",
+    borderRadius: "8px",
+    textAlign: "center",
+    transform: "scale(0.95)",
+    opacity: 0,
+    transition: "opacity 0.2s ease, transform 0.2s ease",
+});
+
+export const modal_conteudo_visivel = style({
+    opacity: 1,
+    transform: "scale(1)",
+});
+
+export const modal_botoes = style({
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "15px",
+    gap:"5rem"
+});
+
+export const botao_confirmar = style({
+    backgroundColor: "#dc3545",
+    color: "white",
+    padding: "8px 12px",
+    borderRadius: "4px",
+    border: "none",
+    cursor: "pointer",
+    width: "70px"
+});
+
+export const botao_cancelar = style({
+    backgroundColor: "gray",
+    color: "white",
+    padding: "8px 12px",
+    borderRadius: "4px",
+    border: "none",
+    cursor: "pointer",
+    width: "70px"
+});
+
+
+export const p_modal = style({
+    fontSize: "16px"
+});
+
+export const div_paragrafos_modal = style({
+    display: "grid",
+    textAlign: "start",
+    margin: "3rem 0rem"
+
+});

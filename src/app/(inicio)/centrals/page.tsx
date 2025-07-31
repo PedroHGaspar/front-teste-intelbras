@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
 import { ChevronLeftIcon } from "../../../presentation/components/icons/chevron-left";
 import { ChevronRightIcon } from "../../../presentation/components/icons/chevron-right";
 import { ChevronDownIcon } from "../../../presentation/components/icons/chevron-down";
 import { ChevronUpIcon } from "../../../presentation/components/icons/chevron-up";
+import { TrashIcon } from "../../../presentation/components/icons/trash";
+import type { Central } from "../../../presentation/components/utils/services/useCentrals";
+
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
@@ -17,7 +21,10 @@ export default function CentralsPage() {
     const [search, setSearch] = useState("");
     const [models, setModels] = useState<Record<number, string>>({}); // id e nome
 
+    // const [centralSelecionada, setCentralSelecionada] = useState(); // modal
 
+    const [centralSelecionada, setCentralSelecionada] = useState<Central>();//importei a tipagem
+    const queryClient = useQueryClient();
 
     const { data } = useCentrals(page, limit);
     const total_paginas = data ? Math.ceil(data.total / limit) : 1;
@@ -92,7 +99,7 @@ export default function CentralsPage() {
             }
         }
 
-        return <ChevronDownIcon customSize="10" />;//icone padrão
+        return <ChevronDownIcon customSize="10" />;
     }
 
     function linhasFiltradas() {
@@ -106,7 +113,14 @@ export default function CentralsPage() {
         });
     }
 
-
+    function excluirCentral() {
+        fetch(`http://localhost:5000/centrals/${centralSelecionada!.id}`, {//só forcei com ! pra tirar o erro pois sei que aqui não é undefined
+            method: "DELETE",
+        }).then(() => {
+            setCentralSelecionada(undefined);
+            queryClient.invalidateQueries({ queryKey: ["centrals"] });
+        });
+    }
 
     return (
         <div className={style.div_pai}>
@@ -141,6 +155,7 @@ export default function CentralsPage() {
                             Modelo ID {iconeOrdenarColunas("modelId")}
                         </th>
                         <th className={style.header_tabela}>MAC</th>
+                        <th className={style.header_tabela}>Ações</th>
                     </tr>
                 </thead>
 
@@ -153,6 +168,11 @@ export default function CentralsPage() {
                                 {models[central.modelId] || central.modelId}
                             </td>
                             <td className={style.colunas_tabela}>{central.mac}</td>
+                            <td className={style.colunas_tabela}>
+                                <button title="Excluir" className={style.botao_icone_excluir} onClick={() => setCentralSelecionada(central)}>
+                                    <TrashIcon customSize="12" />
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -177,6 +197,30 @@ export default function CentralsPage() {
                     <ChevronRightIcon customSize={"10"} />
                 </button>
             </div>
+
+            <div
+                className={`${style.modal_overlay} ${centralSelecionada ? style.modal_aberto : ""}`}>
+                <div
+                    className={`${style.modal_conteudo} ${centralSelecionada ? style.modal_conteudo_visivel : ""}`}>
+                    {centralSelecionada && (
+                        <>
+                            <h1>Confirmar a exclusão da seguinte central:</h1>
+                            <div className={style.div_paragrafos_modal}>
+                                <p className={style.p_modal}><strong>ID:</strong> {centralSelecionada.id}</p>
+                                <p className={style.p_modal}><strong>Nome:</strong> {centralSelecionada.name}</p>
+                                <p className={style.p_modal}><strong>Modelo:</strong> {models[centralSelecionada.modelId]}</p>
+                                <p className={style.p_modal}><strong>MAC:</strong> {centralSelecionada.mac}</p>
+                            </div>
+
+                            <div className={style.modal_botoes}>
+                                <button onClick={excluirCentral} className={style.botao_confirmar}>Sim</button>
+                                <button onClick={() => setCentralSelecionada(undefined)} className={style.botao_cancelar}>Não</button>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+
         </div>
     );
 }
