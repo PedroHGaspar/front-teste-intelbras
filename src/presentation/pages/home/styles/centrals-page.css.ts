@@ -99,3 +99,22 @@ export const select_estilizado = style({
     borderColor: "#888",
     transition: "background 0.2s ease-in-out",
 });
+
+export const input_busca = style({
+    padding: "6px 10px",
+    borderRadius: "6px",
+    fontSize: "12px",
+    border: "1px solid #ccc",
+    background: "#1c242e",
+    color: "#FFF",
+});
+
+export const paginacao_busca = style({
+    display:"flex",
+    justifyContent:"space-between"
+})
+
+export const titulo_subtitulo = style({
+    textAlign:"center"
+})
+

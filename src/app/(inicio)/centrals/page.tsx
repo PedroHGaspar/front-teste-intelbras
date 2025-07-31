@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
 import { ChevronLeftIcon } from "../../../presentation/components/icons/chevron-left";
 import { ChevronRightIcon } from "../../../presentation/components/icons/chevron-right";
@@ -14,15 +14,19 @@ export default function CentralsPage() {
     const [limit, setLimit] = useState(5);
     const [nomeHeader, setNomeHeader] = useState<"name" | "modelId" | null>("name");
     const [sortOrdenacao, setsortOrdenacao] = useState<"asc" | "desc">("asc");
+    const [search, setSearch] = useState("");
+    const [models, setModels] = useState<Record<number, string>>({}); // id e nome
+
+
 
     const { data } = useCentrals(page, limit);
     const total_paginas = data ? Math.ceil(data.total / limit) : 1;
 
-    const proxima_pagina = () => {
+    function proxima_pagina() {
         if (page < total_paginas) setPage((prev) => prev + 1);
     };
 
-    const pagina_anterior = () => {
+    function pagina_anterior() {
         setPage((prev) => Math.max(prev - 1, 1));
     };
 
@@ -39,6 +43,19 @@ export default function CentralsPage() {
             setsortOrdenacao("asc");//crescente por padrão
         }
     };
+
+    useEffect(() => {
+        fetch("http://localhost:5000/models")
+            .then((res) => res.json())
+            .then((modeloLista) => {
+                const mapear: Record<number, string> = {};
+                modeloLista.forEach((modelo: any) => {
+                    mapear[modelo.id] = modelo.name;
+                });
+                // console.log(mapear); -> aqui conseguimos ver que um novo objeto foi criado com id e nome sem as keys, apenas o value
+                setModels(mapear);
+            });
+    }, []); // meu [] faz salvar localmente a lista dos models
 
     function ordenarColunas() { //essa função peguei de uma aplicação minha, basicamente ordena a coluna que precisar, só colocar o nome da coluna
         if (!data) return [];
@@ -78,28 +95,39 @@ export default function CentralsPage() {
         return <ChevronDownIcon customSize="10" />;//icone padrão
     }
 
+    function linhasFiltradas() {
+        let termo = search.toLowerCase();
+
+        return ordenarColunas().filter((central) => {
+            return (
+                central.name.toLowerCase().includes(termo) ||
+                models[central.modelId]?.toLowerCase().includes(termo)
+            );
+        });
+    }
+
+
 
     return (
         <div className={style.div_pai}>
-            <div>
+            <div className={style.titulo_subtitulo}>
                 <h1>Centrais</h1>
                 <p className={style.paragrafo_gerenciamento}>
                     Gerenciamento de Centrais
                 </p>
             </div>
 
-            <div className={style.container_select}>
-                <label>Itens por página:</label>
-                <select
-                    value={limit}
-                    onChange={handleLimitChange}
-                    className={style.select_estilizado}
-                >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                    <option value={20}>20</option>
-                </select>
+            <div className={style.paginacao_busca}>
+                <div className={style.container_select}>
+                    <label>Itens por página:</label>
+                    <select value={limit} onChange={handleLimitChange} className={style.select_estilizado}>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={20}>20</option>
+                    </select>
+                </div>
+                <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} />
             </div>
 
             <table className={style.table}>
@@ -117,12 +145,12 @@ export default function CentralsPage() {
                 </thead>
 
                 <tbody>
-                    {ordenarColunas().map((central) => (
+                    {linhasFiltradas().map((central) => (
                         <tr key={central.id} className={style.linha_tr_tabela}>
                             <td className={style.colunas_tabela}>{central.id}</td>
                             <td className={style.colunas_tabela}>{central.name}</td>
                             <td className={style.colunas_tabela_modeloId}>
-                                {central.modelId}
+                                {models[central.modelId] || central.modelId}
                             </td>
                             <td className={style.colunas_tabela}>{central.mac}</td>
                         </tr>
