@@ -2,7 +2,8 @@
 import { style } from "@vanilla-extract/css";
 
 export const div_pai = style({
-    width: "max-content",
+    // width: "max-content",
+    width: "40%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
@@ -11,13 +12,13 @@ export const div_pai = style({
 });
 
 export const table = style({
-    width: "max-content",
+    width: "auto",
     borderCollapse: "collapse",
     fontSize: "1.5rem",
 });
 
 export const header_tabela = style({
-    backgroundColor: "#0d1116",
+    backgroundColor: "#00a3359e",
     fontWeight: "bold",
     textAlign: "center",
     padding: "1rem",
@@ -37,6 +38,9 @@ export const linha_tr_tabela = style({
     },
 });
 
+export const header_clicavel_modeloId = style({
+    textAlign: "right",
+});
 export const header_clicavel = style({
     cursor: "pointer",
 });
@@ -107,6 +111,7 @@ export const input_busca = style({
     border: "1px solid #ccc",
     background: "#1c242e",
     color: "#FFF",
+    width: "auto"
 });
 
 export const paginacao_busca = style({
@@ -167,7 +172,7 @@ export const modal_botoes = style({
     display: "flex",
     justifyContent: "center",
     marginTop: "15px",
-    gap:"5rem"
+    gap: "5rem"
 });
 
 export const botao_confirmar = style({

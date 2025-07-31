@@ -151,7 +151,7 @@ export default function CentralsPage() {
                         <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("name")}>
                             Nome {iconeOrdenarColunas("name")}
                         </th>
-                        <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("modelId")}>
+                        <th className={`${style.header_tabela} ${style.header_clicavel} ${style.header_clicavel_modeloId}`} onClick={() => handleSort("modelId")}>
                             Modelo ID {iconeOrdenarColunas("modelId")}
                         </th>
                         <th className={style.header_tabela}>MAC</th>
