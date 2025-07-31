@@ -1,4 +1,3 @@
-// src/app/centrals/styles/centrals-page.css.ts
 import { style } from "@vanilla-extract/css";
 
 export const div_pai = style({
@@ -111,7 +110,8 @@ export const input_busca = style({
     border: "1px solid #ccc",
     background: "#1c242e",
     color: "#FFF",
-    width: "auto"
+    width: "10vw"
+    // width: "auto"
 });
 
 export const paginacao_busca = style({
@@ -205,4 +205,43 @@ export const div_paragrafos_modal = style({
     textAlign: "start",
     margin: "3rem 0rem"
 
+});
+
+export const container_busca_criar = style({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "end",
+    gap: "12px",
+    flex: 1,
+});
+
+export const input_wrapper = style({
+    position: "relative",
+});
+
+export const input_icon = style({
+    position: "absolute",
+    right: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    pointerEvents: "none",
+    background: "#1c242e",
+    padding: "0rem 0.5rem"
+});
+
+export const botao_criar = style({
+    backgroundColor: "#00a3359e",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    padding: "8px 16px",
+    cursor: "pointer",
+    fontSize: "12px",
+    height: "auto",
+    transition: "background-color 0.2s ease",
+    selectors: {
+        '&:hover': {
+            backgroundColor: "#1c242e",
+        },
+    },
 });

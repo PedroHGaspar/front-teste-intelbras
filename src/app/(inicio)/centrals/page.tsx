@@ -8,7 +8,10 @@ import { ChevronRightIcon } from "../../../presentation/components/icons/chevron
 import { ChevronDownIcon } from "../../../presentation/components/icons/chevron-down";
 import { ChevronUpIcon } from "../../../presentation/components/icons/chevron-up";
 import { TrashIcon } from "../../../presentation/components/icons/trash";
+import { SearchIcon } from "../../../presentation/components/icons/search";
 import type { Central } from "../../../presentation/components/utils/services/useCentrals";
+import { useRouter } from "next/navigation";
+
 
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
@@ -28,6 +31,13 @@ export default function CentralsPage() {
 
     const { data } = useCentrals(page, limit);
     const total_paginas = data ? Math.ceil(data.total / limit) : 1;
+
+
+    const router = useRouter();
+    function irParaCriarCentral() {
+        router.push("/centrals/criar");
+    }
+
 
     function proxima_pagina() {
         if (page < total_paginas) setPage((prev) => prev + 1);
@@ -141,7 +151,24 @@ export default function CentralsPage() {
                         <option value={20}>20</option>
                     </select>
                 </div>
-                <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} />
+                {/* <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} /> */}
+                <div className={style.container_busca_criar}>
+                    <div className={style.input_wrapper}>
+                        <input
+                            type="text"
+                            placeholder="Busca por nome ou modelo"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className={style.input_busca}
+                        />
+                        <div className={style.input_icon}>
+                            <SearchIcon customSize="14" />
+                        </div>
+                    </div>
+                    <button className={style.botao_criar} onClick={irParaCriarCentral}>
+                        Criar Central
+                    </button>
+                </div>
             </div>
 
             <table className={style.table}>
