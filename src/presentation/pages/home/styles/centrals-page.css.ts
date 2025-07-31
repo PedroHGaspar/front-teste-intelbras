@@ -37,6 +37,9 @@ export const linha_tr_tabela = style({
     },
 });
 
+export const header_clicavel = style({
+    cursor: "pointer",
+});
 
 export const colunas_tabela = style({
     padding: "1rem",
