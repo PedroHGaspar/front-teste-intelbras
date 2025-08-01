@@ -17,7 +17,8 @@ export function useCentrals(page: number, limit: number = 5) {
         queryKey: ["centrals", page, limit],
         queryFn: async () => {
             const [dataRes, totalRes] = await Promise.all([
-                fetch(`http://localhost:5000/centrals?_page=${page}&_limit=${limit}`),
+                // fetch(`http://localhost:5000/centrals?_page=${page}&_limit=${limit}`),
+                fetch(`http://localhost:5000/centrals?_page=${page}&_limit=${limit}&_sort=id&_order=asc`),
                 fetch("http://localhost:5000/centrals")
             ]);
 

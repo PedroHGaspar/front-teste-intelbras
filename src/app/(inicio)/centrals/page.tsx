@@ -12,14 +12,12 @@ import { SearchIcon } from "../../../presentation/components/icons/search";
 import type { Central } from "../../../presentation/components/utils/services/useCentrals";
 import { useRouter } from "next/navigation";
 
-
-
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
 export default function CentralsPage() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(5);
-    const [nomeHeader, setNomeHeader] = useState<"name" | "modelId" | null>("name");
+    const [nomeHeader, setNomeHeader] = useState<"id" | "name" | "modelId">("id"); // corrigido aqui para começar pela ordenação por ID
     const [sortOrdenacao, setsortOrdenacao] = useState<"asc" | "desc">("asc");
     const [search, setSearch] = useState("");
     const [models, setModels] = useState<Record<number, string>>({}); // id e nome
@@ -32,12 +30,10 @@ export default function CentralsPage() {
     const { data } = useCentrals(page, limit);
     const total_paginas = data ? Math.ceil(data.total / limit) : 1;
 
-
     const router = useRouter();
     function irParaCriarCentral() {
         router.push("/centrals/criar");
     }
-
 
     function proxima_pagina() {
         if (page < total_paginas) setPage((prev) => prev + 1);
@@ -52,7 +48,7 @@ export default function CentralsPage() {
         setPage(1);
     };
 
-    const handleSort = (key: "name" | "modelId") => {
+    const handleSort = (key: "id" | "name" | "modelId") => { // adicionado "id" como opção válida
         if (nomeHeader === key) {
             setsortOrdenacao((prev) => (prev === "asc" ? "desc" : "asc"));
         } else {
@@ -79,7 +75,11 @@ export default function CentralsPage() {
 
         const sorted = [...data.data];//spread padrao 
 
-        if (nomeHeader === "name") {
+        if (nomeHeader === "id") {
+            sorted.sort((a, b) =>
+                sortOrdenacao === "asc" ? a.id - b.id : b.id - a.id
+            );
+        } else if (nomeHeader === "name") {
             sorted.sort((a, b) => {
                 let nameA = a.name.match(/\d+/g)?.[0];
                 let nameB = b.name.match(/\d+/g)?.[0];
@@ -174,7 +174,9 @@ export default function CentralsPage() {
             <table className={style.table}>
                 <thead>
                     <tr>
-                        <th className={style.header_tabela}>ID</th>
+                        <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("id")}>
+                            ID {iconeOrdenarColunas("id")}
+                        </th>
                         <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("name")}>
                             Nome {iconeOrdenarColunas("name")}
                         </th>
@@ -247,7 +249,6 @@ export default function CentralsPage() {
                     )}
                 </div>
             </div>
-
         </div>
     );
 }
