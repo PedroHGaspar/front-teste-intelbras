@@ -1,146 +1,146 @@
 {
-    "centrals": [
-        {
-            "id": 1,
-            "name": "Central 1",
-            "mac": "10:E0:09:00:50:00",
-            "modelId": 1
-        },
-        {
-            "id": 2,
-            "name": "Central 2",
-            "mac": "03:00:G0:80:80:02",
-            "modelId": 2
-        },
-        {
-            "id": 3,
-            "name": "Central 3",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 3
-        },
-        {
-            "id": 4,
-            "name": "Central 4",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 4
-        },
-        {
-            "id": 5,
-            "name": "Central 5",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 5
-        },
-        {
-            "id": 6,
-            "name": "Central 6",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 6
-        },
-        {
-            "id": 7,
-            "name": "Central 7",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 7
-        },
-        {
-            "id": 8,
-            "name": "Central 8",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 8
-        },
-        {
-            "id": 9,
-            "name": "Central 9",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 9
-        },
-        {
-            "id": 10,
-            "name": "Central 10",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 10
-        },
-        {
-            "id": 11,
-            "name": "Central 11",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 11
-        },
-        {
-            "id": 12,
-            "name": "Central 12",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 12
-        },
-        {
-            "id": 13,
-            "name": "Central 13",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 13
-        },
-        {
-            "id": 14,
-            "name": "Central 14",
-            "mac": "56:0U:00:60:40:00",
-            "modelId": 14
-        }
-    ],
-    "models": [
-        {
-            "id": 1,
-            "name": "AMT 4010"
-        },
-        {
-            "id": 2,
-            "name": "AMT 4010 SMART"
-        },
-        {
-            "id": 3,
-            "name": "AMT 2018"
-        },
-        {
-            "id": 4,
-            "name": "AMT 2018 E/EG"
-        },
-        {
-            "id": 5,
-            "name": "AMT 1000"
-        },
-        {
-            "id": 6,
-            "name": "AMT 2020"
-        },
-        {
-            "id": 7,
-            "name": "BMT 3050"
-        },
-        {
-            "id": 8,
-            "name": "BMT 4050"
-        },
-        {
-            "id": 9,
-            "name": "BMT 5050"
-        },
-        {
-            "id": 10,
-            "name": "BMT 6050"
-        },
-        {
-            "id": 11,
-            "name": "CMT 7090"
-        },
-        {
-            "id": 12,
-            "name": "CMT 9089"
-        },
-        {
-            "id": 13,
-            "name": "CMT 9450"
-        },
-        {
-            "id": 14,
-            "name": "CMT 2490"
-        }
-    ]
+  "centrals": [
+    {
+      "id": 1,
+      "name": "Central 1",
+      "mac": "10:E0:09:00:50:00",
+      "modelId": 1
+    },
+    {
+      "id": 2,
+      "name": "Central 2",
+      "mac": "03:00:G0:80:80:02",
+      "modelId": 2
+    },
+    {
+      "id": 3,
+      "name": "Central 3",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 3
+    },
+    {
+      "id": 4,
+      "name": "Central 4",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 4
+    },
+    {
+      "id": 5,
+      "name": "Central 5",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 5
+    },
+    {
+      "id": 6,
+      "name": "Central 6",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 6
+    },
+    {
+      "id": 7,
+      "name": "Central 7",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 7
+    },
+    {
+      "id": 8,
+      "name": "Central 8",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 8
+    },
+    {
+      "id": 9,
+      "name": "Central 9",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 9
+    },
+    {
+      "id": 10,
+      "name": "Central 10",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 10
+    },
+    {
+      "id": 11,
+      "name": "Central 11",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 11
+    },
+    {
+      "id": 12,
+      "name": "Central 12",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 12
+    },
+    {
+      "id": 13,
+      "name": "Central 13",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 13
+    },
+    {
+      "id": 14,
+      "name": "Central 14",
+      "mac": "56:0U:00:60:40:00",
+      "modelId": 14
+    }
+  ],
+  "models": [
+    {
+      "id": 1,
+      "name": "AMT 4010"
+    },
+    {
+      "id": 2,
+      "name": "AMT 4010 SMART"
+    },
+    {
+      "id": 3,
+      "name": "AMT 2018"
+    },
+    {
+      "id": 4,
+      "name": "AMT 2018 E/EG"
+    },
+    {
+      "id": 5,
+      "name": "AMT 1000"
+    },
+    {
+      "id": 6,
+      "name": "AMT 2020"
+    },
+    {
+      "id": 7,
+      "name": "BMT 3050"
+    },
+    {
+      "id": 8,
+      "name": "BMT 4050"
+    },
+    {
+      "id": 9,
+      "name": "BMT 5050"
+    },
+    {
+      "id": 10,
+      "name": "BMT 6050"
+    },
+    {
+      "id": 11,
+      "name": "CMT 7090"
+    },
+    {
+      "id": 12,
+      "name": "CMT 9089"
+    },
+    {
+      "id": 13,
+      "name": "CMT 9450"
+    },
+    {
+      "id": 14,
+      "name": "CMT 2490"
+    }
+  ]
 }

@@ -245,3 +245,51 @@ export const botao_criar = style({
         },
     },
 });
+
+export const div_criar_container = style({
+    padding: "2rem",
+    maxWidth: "500px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2rem",
+});
+
+export const div_titulo_voltar = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+});
+
+export const botao_voltar = style({
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "#fff",
+});
+
+export const formulario = style({
+    display: "flex",
+    flexDirection: "column",
+    gap: "1.5rem",
+});
+
+export const campo_form = style({
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
+});
+
+export const input_form = style({
+    padding: "0.5rem",
+    fontSize: "14px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    background: "#1c242e",
+    color: "#fff",
+});
+
+export const erro_mensagem = style({
+    fontSize: "12px",
+    color: "red",
+});
