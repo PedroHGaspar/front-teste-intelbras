@@ -40,6 +40,7 @@ export const linha_tr_tabela = style({
 export const header_clicavel_modeloId = style({
     textAlign: "right",
 });
+
 export const header_clicavel = style({
     cursor: "pointer",
 });
@@ -48,6 +49,15 @@ export const colunas_tabela = style({
     padding: "1rem",
     textAlign: 'center',
 });
+
+export const colunas_tabela_opcoes = style({
+    padding: "1rem",
+    textAlign: 'center',
+    display: 'flex',
+    gap: '1.5rem',
+    justifyContent: "center"
+});
+
 export const colunas_tabela_modeloId = style({
     padding: "1rem",
     textAlign: 'right',
@@ -132,7 +142,7 @@ export const titulo_subtitulo = style({
     textAlign: "center"
 })
 
-export const botao_icone_excluir = style({
+export const botao_icone_editar_excluir = style({
     background: "none",
     color: "#FFF",
     cursor: "pointer",

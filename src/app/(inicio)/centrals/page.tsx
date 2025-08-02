@@ -12,6 +12,8 @@ import { SearchIcon } from "../../../presentation/components/icons/search";
 import type { Central } from "../../../presentation/components/utils/services/useCentrals";
 import { useRouter } from "next/navigation";
 import { useCentralStore } from "../../../presentation/components/utils/services/centralStore";
+import { PenIcon } from "../../../presentation/components/icons/pen";
+
 
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
@@ -27,7 +29,7 @@ export default function CentralsPage() {
     const { totalCentrals } = useCentralStore();//vamos renderizar só qnd o totalCentras mudar, evitando ficar renderizando quando qualquer parte do estado mudar
 
 
-    // const [centralSelecionada, setCentralSelecionada] = useState(); // modal
+
 
     const [centralSelecionada, setCentralSelecionada] = useState<Central>();//importei a tipagem
     const queryClient = useQueryClient();
@@ -138,7 +140,7 @@ export default function CentralsPage() {
             method: "DELETE",
         }).then(() => {
             setCentralSelecionada(undefined);
-            queryClient.invalidateQueries({ queryKey: ["centrals"] });
+            queryClient.invalidateQueries({ queryKey: ["centrals"] }); //padrao tanstack pra refazer a req e atualizar a lista
         });
     }
 
@@ -210,11 +212,16 @@ export default function CentralsPage() {
                                 {models[central.modelId] || central.modelId}
                             </td>
                             <td className={style.colunas_tabela}>{central.mac}</td>
-                            <td className={style.colunas_tabela}>
-                                <button title="Excluir" className={style.botao_icone_excluir} onClick={() => setCentralSelecionada(central)}>
+                            <td className={style.colunas_tabela_opcoes}>
+                                <button title="Editar" className={style.botao_icone_editar_excluir} onClick={() => router.push(`/centrals/editar/${central.id}`)}>
+                                    <PenIcon customSize="12" />
+                                </button>
+
+                                <button title="Excluir" className={style.botao_icone_editar_excluir} onClick={() => setCentralSelecionada(central)}>
                                     <TrashIcon customSize="12" />
                                 </button>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>

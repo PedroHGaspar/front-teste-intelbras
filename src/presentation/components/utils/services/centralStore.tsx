@@ -1,7 +1,5 @@
-// src/store/centralStore.ts
 import { create } from "zustand";
 
-// Tipamos nosso estado global
 type CentralStore = {
     totalCentrals: number;
     setTotalCentrals: (total: number) => void;
