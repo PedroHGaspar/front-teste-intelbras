@@ -241,10 +241,15 @@ export const botao_criar = style({
     transition: "background-color 0.2s ease",
     selectors: {
         '&:hover': {
-            backgroundColor: "#1c242e",
+            backgroundColor: "#00eb4e9e",
         },
     },
 });
+
+export const label_criar_central = style({
+    fontSize: "14px",
+});
+
 
 export const div_criar_container = style({
     padding: "2rem",

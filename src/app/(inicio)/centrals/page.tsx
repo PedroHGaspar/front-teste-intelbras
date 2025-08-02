@@ -75,26 +75,25 @@ export default function CentralsPage() {
 
         const sorted = [...data.data];//spread padrao 
 
-        if (nomeHeader === "id") {
-            sorted.sort((a, b) =>
-                sortOrdenacao === "asc" ? a.id - b.id : b.id - a.id
-            );
-        } else if (nomeHeader === "name") {
+        if (nomeHeader === "name") {
+            let collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });//https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
+
             sorted.sort((a, b) => {
-                let nameA = a.name.match(/\d+/g)?.[0];
-                let nameB = b.name.match(/\d+/g)?.[0];
-
-                let numA = nameA ? parseInt(nameA) : 0;
-                let numB = nameB ? parseInt(nameB) : 0;
-
-                return sortOrdenacao === "asc" ? numA - numB : numB - numA;
+                return sortOrdenacao === "asc"
+                    ? collator.compare(a.name, b.name)
+                    : collator.compare(b.name, a.name);
             });
         } else if (nomeHeader === "modelId") {
-            sorted.sort((a, b) =>
-                sortOrdenacao === "asc"
-                    ? a.modelId - b.modelId
-                    : b.modelId - a.modelId
-            );
+            let collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });//https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
+
+            sorted.sort((a, b) => {
+                let modelNameA = models[a.modelId] || "";
+                let modelNameB = models[b.modelId] || "";
+
+                return sortOrdenacao === "asc"
+                    ? collator.compare(modelNameA, modelNameB)
+                    : collator.compare(modelNameB, modelNameA);
+            });
         }
 
         return sorted;
@@ -113,12 +112,12 @@ export default function CentralsPage() {
     }
 
     function linhasFiltradas() {
-        let termo = search.toLowerCase();
+        let termo_filtrado = search.toLowerCase();
 
         return ordenarColunas().filter((central) => {
             return (
-                central.name.toLowerCase().includes(termo) ||
-                models[central.modelId]?.toLowerCase().includes(termo)
+                central.name.toLowerCase().includes(termo_filtrado) ||
+                models[central.modelId]?.toLowerCase().includes(termo_filtrado)
             );
         });
     }
@@ -174,9 +173,9 @@ export default function CentralsPage() {
             <table className={style.table}>
                 <thead>
                     <tr>
-                        <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("id")}>
+                        {/* <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("id")}>
                             ID {iconeOrdenarColunas("id")}
-                        </th>
+                        </th> */}
                         <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("name")}>
                             Nome {iconeOrdenarColunas("name")}
                         </th>
@@ -191,7 +190,7 @@ export default function CentralsPage() {
                 <tbody>
                     {linhasFiltradas().map((central) => (
                         <tr key={central.id} className={style.linha_tr_tabela}>
-                            <td className={style.colunas_tabela}>{central.id}</td>
+                            {/* <td className={style.colunas_tabela}>{central.id}</td> */}
                             <td className={style.colunas_tabela}>{central.name}</td>
                             <td className={style.colunas_tabela_modeloId}>
                                 {models[central.modelId] || central.modelId}

@@ -122,7 +122,7 @@ export default function CriarCentralPage() {
 
             <form onSubmit={handleSubmit(enviarNovaCentral)} className={style.formulario}>
                 <div className={style.campo_form}>
-                    <label>Nome</label>
+                    <label className={style.label_criar_central}>Nome</label>
                     <input
                         type="text"
                         {...register("name")}
@@ -134,7 +134,7 @@ export default function CriarCentralPage() {
                 </div>
 
                 <div className={style.campo_form}>
-                    <label>MAC</label>
+                    <label className={style.label_criar_central}>MAC</label>
                     <input
                         type="text"
                         {...register("mac")}
@@ -150,7 +150,7 @@ export default function CriarCentralPage() {
                 </div>
 
                 <div className={style.campo_form}>
-                    <label>Modelo</label>
+                    <label className={style.label_criar_central}>Modelo</label>
                     <select
                         {...register("modelId")}
                         className={style.select_estilizado}
