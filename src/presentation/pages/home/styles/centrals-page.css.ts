@@ -317,3 +317,20 @@ export const erro_mensagem = style({
     fontSize: "12px",
     color: "red",
 });
+
+export const botao_reverter = style({
+    marginTop: "1rem",
+    padding: "0.9rem",
+    backgroundColor: "#00a3359e",
+    border: "none",
+    color: "white",
+    cursor: "pointer",
+    borderRadius: "4px",
+    transition: "background-color 0.2s ease",
+    selectors: {
+        '&:hover': {
+            backgroundColor: "#00eb4e9e",
+        },
+    },
+});
+

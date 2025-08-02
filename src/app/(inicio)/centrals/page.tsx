@@ -14,6 +14,10 @@ import { useRouter } from "next/navigation";
 import { useCentralStore } from "../../../presentation/components/utils/services/centralStore";
 import { PenIcon } from "../../../presentation/components/icons/pen";
 
+import { useUndoStore } from "../../../presentation/components/utils/services/undoStore"; // novo Zustand
+import { UndoNotificacao } from "../../../presentation/components/undoNotificacao"; // novo componente
+
+
 
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
@@ -136,13 +140,16 @@ export default function CentralsPage() {
     }
 
     function excluirCentral() {
-        fetch(`http://localhost:5000/centrals/${centralSelecionada!.id}`, {//só forcei com ! pra tirar o erro pois sei que aqui não é undefined
+        fetch(`http://localhost:5000/centrals/${centralSelecionada!.id}`, {
             method: "DELETE",
         }).then(() => {
+            useUndoStore.getState().addUndo(centralSelecionada!); // empilha os avisos de undo pra poder reverter (estado global)
             setCentralSelecionada(undefined);
-            queryClient.invalidateQueries({ queryKey: ["centrals"] }); //padrao tanstack pra refazer a req e atualizar a lista
+            queryClient.invalidateQueries({ queryKey: ["centrals"] });
         });
     }
+
+
 
     return (
         <div className={style.div_pai}>
@@ -269,6 +276,7 @@ export default function CentralsPage() {
                     )}
                 </div>
             </div>
+            <UndoNotificacao />
         </div>
     );
 }
