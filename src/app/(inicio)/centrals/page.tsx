@@ -11,16 +11,21 @@ import { TrashIcon } from "../../../presentation/components/icons/trash";
 import { SearchIcon } from "../../../presentation/components/icons/search";
 import type { Central } from "../../../presentation/components/utils/services/useCentrals";
 import { useRouter } from "next/navigation";
+import { useCentralStore } from "../../../presentation/components/utils/services/centralStore";
+
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
 
 export default function CentralsPage() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(5);
-    const [nomeHeader, setNomeHeader] = useState<"id" | "name" | "modelId">("id"); // corrigido aqui para começar pela ordenação por ID
+    const [nomeHeader, setNomeHeader] = useState<"id" | "name" | "modelId">("id");
     const [sortOrdenacao, setsortOrdenacao] = useState<"asc" | "desc">("asc");
     const [search, setSearch] = useState("");
     const [models, setModels] = useState<Record<number, string>>({}); // id e nome
+    const { setTotalCentrals } = useCentralStore();//zustand
+    const { totalCentrals } = useCentralStore();//vamos renderizar só qnd o totalCentras mudar, evitando ficar renderizando quando qualquer parte do estado mudar
+
 
     // const [centralSelecionada, setCentralSelecionada] = useState(); // modal
 
@@ -70,10 +75,16 @@ export default function CentralsPage() {
             });
     }, []); // meu [] faz salvar localmente a lista dos models
 
-    function ordenarColunas() { //essa função peguei de uma aplicação minha, basicamente ordena a coluna que precisar, só colocar o nome da coluna
+    useEffect(() => {
+        if (data?.total) {
+            setTotalCentrals(data.total);
+        }
+    }, [data?.total]);
+
+    function ordenarColunas() {
         if (!data) return [];
 
-        const sorted = [...data.data];//spread padrao 
+        const sorted = [...data.data];
 
         if (nomeHeader === "name") {
             let collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });//https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
@@ -134,9 +145,12 @@ export default function CentralsPage() {
     return (
         <div className={style.div_pai}>
             <div className={style.titulo_subtitulo}>
-                <h1>Centrais</h1>
+                <h1 className={style.titulo_centrais}>Centrais</h1>
                 <p className={style.paragrafo_gerenciamento}>
                     Gerenciamento de Centrais
+                </p>
+                <p className={style.paragrafo_total_centrais_cadastradas}>
+                    Total de centrais cadastradas:<strong> {totalCentrals}</strong>
                 </p>
             </div>
 

@@ -60,8 +60,17 @@ export const container_paginacao = style({
     gap: "1rem",
 
 });
+
 export const paragrafo_gerenciamento = style({
-    fontSize: '14px'
+    fontSize: '16px'
+});
+
+export const titulo_centrais = style({
+    fontSize: '24px'
+});
+
+export const paragrafo_total_centrais_cadastradas = style({
+    fontSize: '12px'
 });
 
 export const botao_paginacao = style({
