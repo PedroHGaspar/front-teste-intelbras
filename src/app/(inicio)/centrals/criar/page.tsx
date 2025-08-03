@@ -117,7 +117,7 @@ export default function CriarCentralPage() {
                 <button onClick={voltar} className={style.botao_voltar}>
                     <ChevronLeftIcon customSize="16" />
                 </button>
-                <h1>Criar Nova Central</h1>
+                <h2>Criar Nova Central</h2>
             </div>
 
             <form onSubmit={handleSubmit(enviarNovaCentral)} className={style.formulario}>
@@ -153,7 +153,7 @@ export default function CriarCentralPage() {
                     <label className={style.label_criar_central}>Modelo</label>
                     <select
                         {...register("modelId")}
-                        className={style.select_estilizado}
+                        className={style.select_estilizado_inline}
                     >
                         <option value="">Selecione um modelo</option>
                         {modelos &&

@@ -8,7 +8,7 @@ export const div_pai = style({
     gap: "2rem",
     margin: '0 auto',
     height: "fit-content",
-    marginTop: "10vh",
+    // marginTop: "10vh",
     background: "#22272c;",
     borderRadius: "2rem"
 });
@@ -87,7 +87,7 @@ export const paragrafo_total_centrais_cadastradas = style({
 export const botao_paginacao = style({
     background: "#0d1116",
     // border: "1px solid #ccc",
-    padding: "0.6rem 1.2rem",
+    padding: "6px 12px",
     cursor: "pointer",
     fontSize: "1.4rem",
     borderRadius: "4px",
@@ -114,15 +114,12 @@ export const container_select = style({
 
 
 export const input_busca = style({
-    padding: "8px 8px",
+    // padding: "8px 8px",
     borderRadius: "6px",
     fontSize: "12px",
-    // border: "1px solid #ccc",
-    // background: "#1c242e",
     background: "#0d1116",
     color: "#FFF",
-    width: "10vw"
-    // width: "auto"
+    gap: "10px"
 });
 
 export const paginacao_busca = style({
@@ -214,8 +211,8 @@ export const p_modal = style({
 export const div_paragrafos_modal = style({
     display: "grid",
     textAlign: "start",
-    margin: "3rem 0rem"
-
+    margin: "3rem 0rem",
+    gap: "6px"
 });
 
 export const container_busca_criar = style({
@@ -227,18 +224,25 @@ export const container_busca_criar = style({
 });
 
 export const input_wrapper = style({
-    position: "relative",
+    display: "flex",
+    alignContent: "center",
+    justifyContent: "center",
+    padding: "8px 8px",
+    borderRadius: "6px",
+    fontSize: "12px",
+    background: "#0d1116",
+    color: "#FFF",
+    gap: "10px"
 });
 
 export const input_icon = style({
-    position: "absolute",
-    right: "10px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    pointerEvents: "none",
-    // background: "#1c242e",
-    background: "#0d1116",
-    padding: "0rem 0.5rem"
+    // position: "absolute",
+    // right: "10px",
+    // top: "50%",
+    // transform: "translateY(-50%)",
+    // pointerEvents: "none",
+    // background: "#0d1116",
+    // padding: "0rem 0.5rem"
 });
 
 export const botao_criar = style({
@@ -264,12 +268,12 @@ export const label_criar_central = style({
 
 
 export const div_criar_container = style({
-    padding: "2rem",
-    maxWidth: "500px",
+    background: "#22272c;",
+    borderRadius: "2rem",
+    height: "fit-content",
+    padding: "3rem",
     margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "2rem",
+    fontSize: "14px"
 });
 
 export const div_titulo_voltar = style({
@@ -298,11 +302,12 @@ export const campo_form = style({
 });
 
 export const input_form = style({
-    padding: "0.5rem",
+    padding: "8px 8px",
     fontSize: "14px",
     borderRadius: "4px",
-    border: "1px solid #ccc",
-    background: "#1c242e",
+    // border: "1px solid #ccc",
+    // background: "#1c242e",
+    background: "#0d1116",
     color: "#fff",
 });
 
@@ -313,6 +318,7 @@ export const erro_mensagem = style({
 
 export const botao_reverter = style({
     marginTop: "1rem",
+    marginBottom: "1rem",
     padding: "0.9rem",
     backgroundColor: "#00a3359e",
     border: "none",
@@ -327,8 +333,20 @@ export const botao_reverter = style({
     },
 });
 
+export const select_estilizado = style({
+    padding: "6px 6px",
+    fontSize: "12px",
+    borderRadius: "4px",
+    // border: "1px solid #ccc",
+    backgroundColor: "#0d1116",
+    color: "#fff",
+    cursor: "pointer",
+    borderColor: "#888",
+    transition: "background 0.2s ease-in-out",
+});
+
 export const select_estilizado_inline = style({
-    padding: "0.5rem",
+    padding: "8px 8px",
     fontSize: "12px",
     borderRadius: "4px",
     // border: "1px solid #ccc",

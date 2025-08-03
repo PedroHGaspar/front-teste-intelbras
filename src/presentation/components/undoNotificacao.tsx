@@ -59,15 +59,15 @@ function CardUnicoPraCadaExclusao({ item, offset }: { item: UndoItem; offset: nu
         <div
             style={{
                 position: "fixed",
-                top: `${1 + offset * 8}rem`, // espaçamento dinamico entre cards pra caso varios itens sejam excluidos
+                top: `${1 + offset * 17}rem`, // espaçamento dinamico entre cards pra caso varios itens sejam excluidos
                 right: "1rem",
-                backgroundColor: "#1c242e",
+                backgroundColor: "#22272c",
                 color: "white",
                 padding: "2rem",
                 borderRadius: "8px",
                 boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                 width: "350px",
-                zIndex: 1000 + offset,
+                zIndex: 10 + offset,
             }}
         >
             <p style={{
@@ -85,7 +85,7 @@ function CardUnicoPraCadaExclusao({ item, offset }: { item: UndoItem; offset: nu
             <div
                 style={{
                     height: "4px",
-                    backgroundColor: "#fff",
+                    backgroundColor: "#eee",
                     marginTop: "8px",
                     borderRadius: "2px",
                     overflow: "hidden",

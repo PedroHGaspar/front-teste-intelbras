@@ -231,7 +231,7 @@ export default function CentralsPage() {
                     <select
                         value={limit}
                         onChange={handleLimitChange}
-                        className={style.select_estilizado_inline}
+                        className={style.select_estilizado}
                     >
                         <option value={5}>5</option>
                         <option value={10}>10</option>
