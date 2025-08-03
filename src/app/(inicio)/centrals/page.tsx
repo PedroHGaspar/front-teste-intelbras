@@ -164,15 +164,6 @@ export default function CentralsPage() {
             </div>
 
             <div className={style.paginacao_busca}>
-                <div className={style.container_select}>
-                    <label>Itens por página:</label>
-                    <select value={limit} onChange={handleLimitChange} className={style.select_estilizado}>
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={15}>15</option>
-                        <option value={20}>20</option>
-                    </select>
-                </div>
                 {/* <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} /> */}
                 <div className={style.container_busca_criar}>
                     <div className={style.input_wrapper}>
@@ -235,24 +226,61 @@ export default function CentralsPage() {
             </table>
 
             <div className={style.container_paginacao}>
-                <button
-                    className={style.botao_paginacao}
-                    onClick={pagina_anterior}
-                    disabled={page === 1}
-                >
-                    <ChevronLeftIcon customSize={"10"} />
-                </button>
-                <span style={{ fontSize: "10px" }}>
-                    {page} / {total_paginas}
+                <span style={{ fontSize: "12px" }}>
+                    Página {page} de {total_paginas} – Itens por página{" "}
+                    <select
+                        value={limit}
+                        onChange={handleLimitChange}
+                        className={style.select_estilizado_inline}
+                    >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={20}>20</option>
+                    </select>
                 </span>
-                <button
-                    className={style.botao_paginacao}
-                    onClick={proxima_pagina}
-                    disabled={page >= total_paginas}
-                >
-                    <ChevronRightIcon customSize={"10"} />
-                </button>
+
+                <div className={style.paginacao_botoes}>
+                    <button
+                        onClick={() => setPage(1)}
+                        disabled={page === 1}
+                        className={style.botao_paginacao}
+                        title="Primeira página"
+                    >
+                        <ChevronLeftIcon customSize="10" />
+                        <ChevronLeftIcon customSize="10" />
+                    </button>
+
+                    <button
+                        onClick={pagina_anterior}
+                        disabled={page === 1}
+                        className={style.botao_paginacao}
+                        title="Página anterior"
+                    >
+                        <ChevronLeftIcon customSize="10" />
+                    </button>
+
+                    <button
+                        onClick={proxima_pagina}
+                        disabled={page >= total_paginas}
+                        className={style.botao_paginacao}
+                        title="Próxima página"
+                    >
+                        <ChevronRightIcon customSize="10" />
+                    </button>
+
+                    <button
+                        onClick={() => setPage(total_paginas)}
+                        disabled={page >= total_paginas}
+                        className={style.botao_paginacao}
+                        title="Última página"
+                    >
+                        <ChevronRightIcon customSize="10" />
+                        <ChevronRightIcon customSize="10" />
+                    </button>
+                </div>
             </div>
+
 
             <div
                 className={`${style.modal_overlay} ${centralSelecionada ? style.modal_aberto : ""}`}>

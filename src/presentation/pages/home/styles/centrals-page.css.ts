@@ -1,13 +1,16 @@
 import { style } from "@vanilla-extract/css";
 
 export const div_pai = style({
-    // width: "max-content",
     width: "40%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
     gap: "2rem",
-    margin: '0 auto'
+    margin: '0 auto',
+    height: "fit-content",
+    marginTop: "10vh",
+    background: "#22272c;",
+    borderRadius: "2rem"
 });
 
 export const table = style({
@@ -46,12 +49,12 @@ export const header_clicavel = style({
 });
 
 export const colunas_tabela = style({
-    padding: "1rem",
+    padding: "1.5rem",
     textAlign: 'center',
 });
 
 export const colunas_tabela_opcoes = style({
-    padding: "1rem",
+    padding: "1.5rem",
     textAlign: 'center',
     display: 'flex',
     gap: '1.5rem',
@@ -65,10 +68,8 @@ export const colunas_tabela_modeloId = style({
 
 export const container_paginacao = style({
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: "1rem",
-
 });
 
 export const paragrafo_gerenciamento = style({
@@ -84,18 +85,19 @@ export const paragrafo_total_centrais_cadastradas = style({
 });
 
 export const botao_paginacao = style({
-    background: "#f4f4f4",
-    border: "1px solid #ccc",
+    background: "#0d1116",
+    // border: "1px solid #ccc",
     padding: "0.6rem 1.2rem",
     cursor: "pointer",
     fontSize: "1.4rem",
     borderRadius: "4px",
     transition: "background 0.2s ease-in-out",
+    color: "#FFF",
 
     selectors: {
-        "&:hover:not(:disabled)": {
-            background: "#e2e2e2",
-        },
+        // "&:hover:not(:disabled)": {
+        //     background: "#07111e",
+        // },
         "&:disabled": {
             cursor: "not-allowed",
             opacity: 0.5,
@@ -110,24 +112,14 @@ export const container_select = style({
     fontSize: "12px",
 });
 
-export const select_estilizado = style({
-    padding: "0.5rem",
-    fontSize: "12px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    backgroundColor: "#0d1116",
-    color: "#fff",
-    cursor: "pointer",
-    borderColor: "#888",
-    transition: "background 0.2s ease-in-out",
-});
 
 export const input_busca = style({
-    padding: "6px 10px",
+    padding: "8px 8px",
     borderRadius: "6px",
     fontSize: "12px",
-    border: "1px solid #ccc",
-    background: "#1c242e",
+    // border: "1px solid #ccc",
+    // background: "#1c242e",
+    background: "#0d1116",
     color: "#FFF",
     width: "10vw"
     // width: "auto"
@@ -229,7 +221,7 @@ export const div_paragrafos_modal = style({
 export const container_busca_criar = style({
     display: "flex",
     alignItems: "center",
-    justifyContent: "end",
+    justifyContent: "space-between",
     gap: "12px",
     flex: 1,
 });
@@ -244,7 +236,8 @@ export const input_icon = style({
     top: "50%",
     transform: "translateY(-50%)",
     pointerEvents: "none",
-    background: "#1c242e",
+    // background: "#1c242e",
+    background: "#0d1116",
     padding: "0rem 0.5rem"
 });
 
@@ -334,3 +327,19 @@ export const botao_reverter = style({
     },
 });
 
+export const select_estilizado_inline = style({
+    padding: "0.5rem",
+    fontSize: "12px",
+    borderRadius: "4px",
+    // border: "1px solid #ccc",
+    backgroundColor: "#0d1116",
+    color: "#fff",
+    cursor: "pointer",
+    borderColor: "#888",
+    transition: "background 0.2s ease-in-out",
+});
+
+export const paginacao_botoes = style({
+    display: "flex",
+    gap: "0.4rem",
+});
