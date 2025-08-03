@@ -131,10 +131,28 @@ export const titulo_subtitulo = style({
     textAlign: "center"
 })
 
-export const botao_icone_editar_excluir = style({
+export const botao_icone_excluir = style({
     background: "none",
-    color: "#FFF",
+    color: "#ff6a6a",
     cursor: "pointer",
+    transition: "color 0.2s ease-in-out",
+    selectors: {
+        '&:hover': {
+            color: "#ff3838ff",
+        },
+    },
+})
+
+export const botao_icone_editar = style({
+    background: "none",
+    color: "#9fc4ff",
+    cursor: "pointer",
+    transition: "color 0.2s ease-in-out",
+    selectors: {
+        '&:hover': {
+            color: "#3e88ffff",
+        },
+    },
 })
 
 

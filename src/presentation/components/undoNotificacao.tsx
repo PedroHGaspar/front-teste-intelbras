@@ -50,7 +50,7 @@ function CardUnicoPraCadaExclusao({ item, offset }: { item: UndoItem; offset: nu
             body: JSON.stringify(item.central),
         }).then(() => {
             queryClient.invalidateQueries({ queryKey: ["centrals"] });
-            removeUndo(item.id);//a importancia do id unico pra cada card é que se excluirmos varios, cada card será único e cada botao terá de um id diferente
+            removeUndo(item.id);//a importancia do id unico pra cada card é que se excluirmos varios, cada card será único e terá um id diferente, então cada botão também será único
         });
     }
 

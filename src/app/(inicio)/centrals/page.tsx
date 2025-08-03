@@ -211,11 +211,11 @@ export default function CentralsPage() {
                             </td>
                             <td className={style.colunas_tabela}>{central.mac}</td>
                             <td className={style.colunas_tabela_opcoes}>
-                                <button title="Editar" className={style.botao_icone_editar_excluir} onClick={() => router.push(`/centrals/editar/${central.id}`)}>
+                                <button title="Editar" className={style.botao_icone_editar} onClick={() => router.push(`/centrals/editar/${central.id}`)}>
                                     <PenIcon customSize="12" />
                                 </button>
 
-                                <button title="Excluir" className={style.botao_icone_editar_excluir} onClick={() => setCentralSelecionada(central)}>
+                                <button title="Excluir" className={style.botao_icone_excluir} onClick={() => setCentralSelecionada(central)}>
                                     <TrashIcon customSize="12" />
                                 </button>
                             </td>
