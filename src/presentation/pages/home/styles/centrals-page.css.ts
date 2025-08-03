@@ -379,3 +379,26 @@ export const paginacao_botoes = style({
     display: "flex",
     gap: "0.4rem",
 });
+
+export const botoes_header_tabela = style({
+    display: "flex",
+    gap: "0.8rem",
+});
+
+
+export const botao_criar_csv = style({
+    backgroundColor: "#0075a39e",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    padding: "8px 16px",
+    cursor: "pointer",
+    fontSize: "12px",
+    height: "auto",
+    transition: "background-color 0.2s ease",
+    selectors: {
+        '&:hover': {
+            backgroundColor: "#00a4e69e",
+        },
+    },
+});

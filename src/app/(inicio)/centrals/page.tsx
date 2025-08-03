@@ -149,6 +149,36 @@ export default function CentralsPage() {
         });
     }
 
+    function exportarParaCSV() {
+        let dados = linhasFiltradas(); //filtro e ordenação ja foram feitos, ou seja, se nós ordenarmos o nome do maior pro menor irá aparecer assim no excel, assim como se ordernarmos do menor pro maior também irá ir já com a ordenação pro arquivo de download
+
+        let headers_tabela = ["Nome", "MAC", "Modelo"];
+        let linhas = dados.map((central) => {
+            let nome = central.name;
+            let mac = central.mac;
+            let modelo = models[central.modelId] || central.modelId;
+            return [nome, mac, modelo];
+        });
+
+        let conteudo_excel_csv = [
+            headers_tabela.join(","),
+            ...linhas.map((linha) => linha.map((campo) => `"${campo}"`).join(",")),
+        ].join("\n"); //transformar td em string por que se nao teremos só 1 linha gigante no excel, assim a gnt quebra as linhas 
+
+        let hoje = new Date().toISOString().split("T")[0];
+        let nome_arquivo = `centrals-export-${hoje}.csv`;
+
+        // blob é a melhor alternativa nesse caso -> https://developer.mozilla.org/en-US/docs/Web/API/Blob
+        let blob = new Blob([conteudo_excel_csv], { type: "text/csv;charset=utf-8;" });//evita problam de acento
+        let link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute("download", nome_arquivo);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
 
 
     return (
@@ -178,9 +208,17 @@ export default function CentralsPage() {
                             <SearchIcon customSize="14" />
                         </div>
                     </div>
-                    <button className={style.botao_criar} onClick={irParaCriarCentral}>
-                        Criar Central
-                    </button>
+                    <div className={style.botoes_header_tabela}>
+                        <button
+                            className={style.botao_criar_csv}
+                            onClick={exportarParaCSV}
+                        >
+                            Exportar CSV
+                        </button>
+                        <button className={style.botao_criar} onClick={irParaCriarCentral}>
+                            Criar Central
+                        </button>
+                    </div>
                 </div>
             </div>
 
