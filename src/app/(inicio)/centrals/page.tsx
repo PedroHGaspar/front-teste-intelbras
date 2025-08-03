@@ -150,7 +150,7 @@ export default function CentralsPage() {
     }
 
     function exportarParaCSV() {
-        let dados = linhasFiltradas(); //filtro e ordenação ja foram feitos, ou seja, se nós ordenarmos o nome do maior pro menor irá aparecer assim no excel, assim como se ordernarmos do menor pro maior também irá ir já com a ordenação pro arquivo de download
+        let dados = linhasFiltradas(); //filtro e ordenação ja foram feitos, ou seja, se nós ordenarmos o nome do maior pro menor irá aparecer assim no excel, assim como se ordernarmos do menor pro maior também irá já com a ordenação pro arquivo de download
 
         let headers_tabela = ["Nome", "MAC", "Modelo"];
         let linhas = dados.map((central) => {
@@ -197,22 +197,13 @@ export default function CentralsPage() {
                 {/* <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} /> */}
                 <div className={style.container_busca_criar}>
                     <div className={style.input_wrapper}>
-                        <input
-                            type="text"
-                            placeholder="Busca por nome ou modelo"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className={style.input_busca}
-                        />
+                        <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} />
                         <div className={style.input_icon}>
                             <SearchIcon customSize="14" />
                         </div>
                     </div>
                     <div className={style.botoes_header_tabela}>
-                        <button
-                            className={style.botao_criar_csv}
-                            onClick={exportarParaCSV}
-                        >
+                        <button className={style.botao_criar_csv} onClick={exportarParaCSV}>
                             Exportar CSV
                         </button>
                         <button className={style.botao_criar} onClick={irParaCriarCentral}>
@@ -240,37 +231,41 @@ export default function CentralsPage() {
                 </thead>
 
                 <tbody>
-                    {linhasFiltradas().map((central) => (
-                        <tr key={central.id} className={style.linha_tr_tabela}>
-                            {/* <td className={style.colunas_tabela}>{central.id}</td> */}
-                            <td className={style.colunas_tabela}>{central.name}</td>
-                            <td className={style.colunas_tabela_modeloId}>
-                                {models[central.modelId] || central.modelId}
+                    {linhasFiltradas().length === 0 ? (
+                        <tr>
+                            <td colSpan={4}
+                                className={style.registro_nao_encontrado}>
+                                Não há registros encontrados.
                             </td>
-                            <td className={style.colunas_tabela}>{central.mac}</td>
-                            <td className={style.colunas_tabela_opcoes}>
-                                <button title="Editar" className={style.botao_icone_editar} onClick={() => router.push(`/centrals/editar/${central.id}`)}>
-                                    <PenIcon customSize="12" />
-                                </button>
-
-                                <button title="Excluir" className={style.botao_icone_excluir} onClick={() => setCentralSelecionada(central)}>
-                                    <TrashIcon customSize="12" />
-                                </button>
-                            </td>
-
                         </tr>
-                    ))}
+                    ) : (
+                        linhasFiltradas().map((central) => (
+                            <tr key={central.id} className={style.linha_tr_tabela}>
+                                {/* <td className={style.colunas_tabela}>{central.id}</td> */}
+                                <td className={style.colunas_tabela}>{central.name}</td>
+                                <td className={style.colunas_tabela_modeloId}>
+                                    {models[central.modelId] || central.modelId}
+                                </td>
+                                <td className={style.colunas_tabela}>{central.mac}</td>
+                                <td className={style.colunas_tabela_opcoes}>
+                                    <button title="Editar" className={style.botao_icone_editar} onClick={() => router.push(`/centrals/editar/${central.id}`)}>
+                                        <PenIcon customSize="12" />
+                                    </button>
+                                    <button title="Excluir" className={style.botao_icone_excluir} onClick={() => setCentralSelecionada(central)}>
+                                        <TrashIcon customSize="12" />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
+
             </table>
 
             <div className={style.container_paginacao}>
                 <span style={{ fontSize: "12px" }}>
                     Página {page} de {total_paginas} – Itens por página{" "}
-                    <select
-                        value={limit}
-                        onChange={handleLimitChange}
-                        className={style.select_estilizado}
-                    >
+                    <select value={limit} onChange={handleLimitChange} className={style.select_estilizado}>
                         <option value={5}>5</option>
                         <option value={10}>10</option>
                         <option value={15}>15</option>
@@ -279,40 +274,20 @@ export default function CentralsPage() {
                 </span>
 
                 <div className={style.paginacao_botoes}>
-                    <button
-                        onClick={() => setPage(1)}
-                        disabled={page === 1}
-                        className={style.botao_paginacao}
-                        title="Primeira página"
-                    >
+                    <button onClick={() => setPage(1)} disabled={page === 1} className={style.botao_paginacao} title="Primeira página">
                         <ChevronLeftIcon customSize="10" />
                         <ChevronLeftIcon customSize="10" />
                     </button>
 
-                    <button
-                        onClick={pagina_anterior}
-                        disabled={page === 1}
-                        className={style.botao_paginacao}
-                        title="Página anterior"
-                    >
+                    <button onClick={pagina_anterior} disabled={page === 1} className={style.botao_paginacao} title="Página anterior">
                         <ChevronLeftIcon customSize="10" />
                     </button>
 
-                    <button
-                        onClick={proxima_pagina}
-                        disabled={page >= total_paginas}
-                        className={style.botao_paginacao}
-                        title="Próxima página"
-                    >
+                    <button onClick={proxima_pagina} disabled={page >= total_paginas} className={style.botao_paginacao} title="Próxima página">
                         <ChevronRightIcon customSize="10" />
                     </button>
 
-                    <button
-                        onClick={() => setPage(total_paginas)}
-                        disabled={page >= total_paginas}
-                        className={style.botao_paginacao}
-                        title="Última página"
-                    >
+                    <button onClick={() => setPage(total_paginas)} disabled={page >= total_paginas} className={style.botao_paginacao} title="Última página">
                         <ChevronRightIcon customSize="10" />
                         <ChevronRightIcon customSize="10" />
                     </button>

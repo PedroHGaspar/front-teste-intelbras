@@ -402,3 +402,10 @@ export const botao_criar_csv = style({
         },
     },
 });
+
+export const registro_nao_encontrado = style({
+    textAlign: "center",
+    padding: "1rem",
+    fontStyle: "italic",
+    background: "#1c242e"
+});
