@@ -61,7 +61,7 @@ function CardUnicoPraCadaExclusao({ item, offset }: { item: UndoItem; offset: nu
                 position: "fixed",
                 top: `${1 + offset * 17}rem`, // espaçamento dinamico entre cards pra caso varios itens sejam excluidos
                 right: "1rem",
-                backgroundColor: "#22272c",
+                backgroundColor: "#32383e",
                 color: "white",
                 padding: "2rem",
                 borderRadius: "8px",
@@ -95,7 +95,7 @@ function CardUnicoPraCadaExclusao({ item, offset }: { item: UndoItem; offset: nu
                     style={{
                         height: "100%",
                         width: `${progresso}%`,
-                        backgroundColor: "#000",
+                        backgroundColor: "#171d21",
                         transition: "width 0.1s linear",
                     }}
                 />

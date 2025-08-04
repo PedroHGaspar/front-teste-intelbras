@@ -457,7 +457,7 @@ export const notificacao_card_sucesso = style({
     top: "1rem",
     right: "1rem",
     backgroundColor: "#e0ffe0",
-    color: "#0a410a",
+    color: "#0d1116",
     padding: "1rem",
     borderRadius: "8px",
     boxShadow: "0 0 10px rgba(0,0,0,0.2)",

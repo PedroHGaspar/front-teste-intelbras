@@ -32,6 +32,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         </ThemeContext.Provider>
     );
 }
-
+//a gnt cria esse theme provider pra envolver o projeto inteiro nele, chamando la no layout.tsx da base, fazendo com que envolva todo o body e que busque sempre no localStorage se isDark é t rue ou false, mudando as classes e assim mudando os estilos
 
 //esse componente de dark mode eu ja tinh pronto em um projeto meu que estou fazendo de um dashboard de investimentos, só tive que adaptar um pouco as pastas e as importações

@@ -17,20 +17,9 @@ import { PenIcon } from "../../../presentation/components/icons/pen";
 import { useUndoStore } from "../../../presentation/components/utils/services/undoStore"; // novo Zustand
 import { UndoNotificacao } from "../../../presentation/components/undoNotificacao"; // novo componente
 import { NotificacaoSucesso } from "../../../presentation/components/NotificacaoSucesso";
-import { useTheme } from "../../../presentation/contexts/theme-context";
-import { MoonIcon } from "../../../presentation/components/icons/MoonIcon";
-import { SunIcon } from "../../../presentation/components/icons/SunIcon";
 
-function BotaoToggleTema() {
-    const { isDark, toggleTheme } = useTheme();
 
-    return (
-        <button className={style.botao_darkmode} onClick={toggleTheme} title="Alternar tema">
-            {isDark ? <SunIcon customSize="14" /> : <MoonIcon customSize="14" />}
-        </button>
-    );
-}
-
+import { BotaoToggleTema } from '../../../presentation/components/botaoDarkMode'
 
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
@@ -196,7 +185,7 @@ export default function CentralsPage() {
 
     return (
         <div className={style.div_pai}>
-            <BotaoToggleTema />
+            {/* <BotaoToggleTema /> */}
             <div className={style.titulo_subtitulo}>
                 <h1 className={style.titulo_centrais}>Centrais</h1>
                 <p className={style.paragrafo_gerenciamento}>
