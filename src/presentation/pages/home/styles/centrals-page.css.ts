@@ -409,3 +409,20 @@ export const registro_nao_encontrado = style({
     fontStyle: "italic",
     background: "#1c242e"
 });
+
+
+export const notificacao_card_sucesso = style({
+    position: "fixed",
+    fontSize:"14px",
+    top: "1rem",
+    right: "1rem",
+    backgroundColor: "#e0ffe0",
+    color: "#0a410a",
+    padding: "1rem",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+    zIndex: 999,
+});

@@ -9,7 +9,7 @@ import { useModels } from "../../../../presentation/components/utils/services/us
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronLeftIcon } from "../../../../presentation/components/icons/chevron-left";
 import * as style from "../../../../presentation/pages/home/styles/centrals-page.css";
-
+import { useSuccessStore } from "../../../../presentation/components/utils/services/successStore"; // ajuste o path
 
 const dataNovaCentral = zod.object({
     name: zod.string().min(3, "Nome deve ter no mínimo 3 caracteres"),
@@ -25,6 +25,8 @@ export default function CriarCentralPage() {
     const { data: modelos } = useModels();
     const [macsExistentes, setMacsExistentes] = useState<string[]>([]);
     const [macInput, setMacInput] = useState("");
+
+    const { setCentralCriada } = useSuccessStore(); //notificacao sucesso
 
     const {
         register, //registrar os campos
@@ -68,13 +70,6 @@ export default function CriarCentralPage() {
         return blocos.join(":");
     }
 
-
-    // function handleChangeMac(e) {
-    //     const valor = e.target.value;
-    //     const formatado = formatarMac(valor);
-    //     setMacInput(formatado);
-    // }
-
     function handleChangeMac(event: React.ChangeEvent<HTMLInputElement>) {//tive que usar o event do html pra n implicar type=any
         let campoMacFormatado = formatarMac(event.target.value);
         setMacInput(campoMacFormatado);
@@ -104,6 +99,12 @@ export default function CriarCentralPage() {
         })
             .then(function () {
                 queryClient.invalidateQueries({ queryKey: ["centrals"] });
+                setCentralCriada({
+                    name: data.name,
+                    mac: macInput,
+                    modelId: Number(data.modelId),
+                    id: 0,
+                });
                 router.push("/centrals");
             })
             .catch(function (error) {

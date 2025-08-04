@@ -16,6 +16,8 @@ import { PenIcon } from "../../../presentation/components/icons/pen";
 
 import { useUndoStore } from "../../../presentation/components/utils/services/undoStore"; // novo Zustand
 import { UndoNotificacao } from "../../../presentation/components/undoNotificacao"; // novo componente
+import { NotificacaoSucesso } from "../../../presentation/components/NotificacaoSucesso";
+
 
 
 
@@ -318,6 +320,7 @@ export default function CentralsPage() {
                 </div>
             </div>
             <UndoNotificacao />
+            <NotificacaoSucesso />
         </div>
     );
 }
