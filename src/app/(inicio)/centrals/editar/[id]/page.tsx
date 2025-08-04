@@ -89,7 +89,7 @@ export default function EditarCentralPage() {
                 <button onClick={voltar} className={style.botao_voltar}>
                     <ChevronLeftIcon customSize="16" />
                 </button>
-                <h1>Editar Central</h1>
+                <h1 className={style.titulo_centrais}>Editar Central</h1>
             </div>
 
             <form onSubmit={handleSubmit(enviarEdicao)} className={style.formulario}>

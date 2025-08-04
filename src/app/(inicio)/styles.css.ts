@@ -2,7 +2,8 @@ import { style } from "@vanilla-extract/css";
 
 export const homeLayoutStyle = style({
   width: "100%",
-  height: "100%",
+  // height: "100%",
+  height: "100vh",
   paddingTop: "1rem",
   paddingBottom: "1rem",
   paddingLeft: "1rem",

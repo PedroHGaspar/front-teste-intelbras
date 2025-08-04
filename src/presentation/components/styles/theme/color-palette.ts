@@ -27,6 +27,7 @@ export const COLOR_PALETTE = {
     400: "#02bc3f",
     500: "#00a335",
     600: "#00863f",
+    800: "#039547ff",
   },
   blue: {
     500: "#3cc6fa",

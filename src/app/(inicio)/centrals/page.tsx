@@ -25,7 +25,7 @@ function BotaoToggleTema() {
     const { isDark, toggleTheme } = useTheme();
 
     return (
-        <button className={style.botao_criar} onClick={toggleTheme} title="Alternar tema">
+        <button className={style.botao_darkmode} onClick={toggleTheme} title="Alternar tema">
             {isDark ? <SunIcon customSize="14" /> : <MoonIcon customSize="14" />}
         </button>
     );
@@ -196,6 +196,7 @@ export default function CentralsPage() {
 
     return (
         <div className={style.div_pai}>
+            <BotaoToggleTema />
             <div className={style.titulo_subtitulo}>
                 <h1 className={style.titulo_centrais}>Centrais</h1>
                 <p className={style.paragrafo_gerenciamento}>
@@ -222,7 +223,7 @@ export default function CentralsPage() {
                         <button className={style.botao_criar} onClick={irParaCriarCentral}>
                             Criar Central
                         </button>
-                        <BotaoToggleTema />
+                        {/* <BotaoToggleTema /> */}
                     </div>
                 </div>
             </div>

@@ -9,34 +9,37 @@ export const div_pai = style({
     gap: "2rem",
     margin: '0 auto',
     height: "fit-content",
-    // marginTop: "10vh",
     background: vars.color.background,
-    borderRadius: "2rem"
+    borderRadius: "2rem",
+    border: `1px solid ${vars.color.border}`,
+    color: vars.color.text,
 });
 
 export const table = style({
     width: "auto",
     borderCollapse: "collapse",
     fontSize: "1.5rem",
+    color: vars.color.text,
 });
 
 export const header_tabela = style({
-    backgroundColor: "#00a3359e",
+    backgroundColor: vars.color.success,
     fontWeight: "bold",
     textAlign: "center",
     padding: "1rem",
+    color: vars.color.text,
 });
 
 export const linha_tr_tabela = style({
-    borderBottom: "1px solid #0d1116",
+    borderBottom: `1px solid ${vars.color.border}`,
     transition: "background-color 0.2s ease-in-out",
-
+    color: vars.color.text,
     selectors: {
         "&:nth-child(even)": {
-            backgroundColor: "#161c23",
+            backgroundColor: vars.color.tableRowEven,
         },
         "&:nth-child(odd)": {
-            backgroundColor: "#1c242e",
+            backgroundColor: vars.color.tableRowOdd,
         },
     },
 });
@@ -52,6 +55,7 @@ export const header_clicavel = style({
 export const colunas_tabela = style({
     padding: "1.5rem",
     textAlign: 'center',
+    color: vars.color.text,
 });
 
 export const colunas_tabela_opcoes = style({
@@ -65,7 +69,9 @@ export const colunas_tabela_opcoes = style({
 export const colunas_tabela_modeloId = style({
     padding: "1rem",
     textAlign: 'right',
+    color: vars.color.text,
 });
+
 
 export const container_paginacao = style({
     display: "flex",
@@ -74,31 +80,33 @@ export const container_paginacao = style({
 });
 
 export const paragrafo_gerenciamento = style({
-    fontSize: '16px'
+    fontSize: '16px',
+    color: vars.color.text,
+    background: vars.color.background,
 });
 
 export const titulo_centrais = style({
-    fontSize: '24px'
+    fontSize: '24px',
+    color: vars.color.text,
+    background: vars.color.background,
 });
 
 export const paragrafo_total_centrais_cadastradas = style({
-    fontSize: '12px'
+    fontSize: '12px',
+    color: vars.color.text,
+    background: vars.color.background,
 });
 
 export const botao_paginacao = style({
-    background: "#0d1116",
-    // border: "1px solid #ccc",
+    background: vars.color.surface,
+    // background:"#22272c",
     padding: "6px 12px",
     cursor: "pointer",
     fontSize: "1.4rem",
     borderRadius: "4px",
     transition: "background 0.2s ease-in-out",
-    color: "#FFF",
-
+    color: vars.color.text,
     selectors: {
-        // "&:hover:not(:disabled)": {
-        //     background: "#07111e",
-        // },
         "&:disabled": {
             cursor: "not-allowed",
             opacity: 0.5,
@@ -111,30 +119,30 @@ export const container_select = style({
     alignItems: "center",
     gap: "0.5rem",
     fontSize: "12px",
+    color: vars.color.text,
+    background: vars.color.background,
 });
 
-
 export const input_busca = style({
-    // padding: "8px 8px",
     borderRadius: "6px",
     fontSize: "12px",
-    background: "#0d1116",
-    color: "#FFF",
-    gap: "10px"
+    background: vars.color.surface,
+    color: vars.color.text,
+    gap: "10px",
 });
 
 export const paginacao_busca = style({
     display: "flex",
     justifyContent: "space-between"
-})
+});
 
 export const titulo_subtitulo = style({
     textAlign: "center"
-})
+});
 
 export const botao_icone_excluir = style({
     background: "none",
-    color: "#ff6a6a",
+    color: vars.color.error,
     cursor: "pointer",
     transition: "color 0.2s ease-in-out",
     selectors: {
@@ -142,7 +150,7 @@ export const botao_icone_excluir = style({
             color: "#ff3838ff",
         },
     },
-})
+});
 
 export const botao_icone_editar = style({
     background: "none",
@@ -154,8 +162,7 @@ export const botao_icone_editar = style({
             color: "#3e88ffff",
         },
     },
-})
-
+});
 
 export const modal_overlay = style({
     position: "fixed",
@@ -181,7 +188,7 @@ export const modal_aberto = style({
 export const modal_conteudo = style({
     width: "400px",
     height: "auto",
-    backgroundColor: "#1c242e",
+    backgroundColor: vars.color.surface,
     padding: "20px",
     borderRadius: "8px",
     textAlign: "center",
@@ -203,7 +210,7 @@ export const modal_botoes = style({
 });
 
 export const botao_confirmar = style({
-    backgroundColor: "#dc3545",
+    backgroundColor: vars.color.error,
     color: "white",
     padding: "8px 12px",
     borderRadius: "4px",
@@ -213,7 +220,7 @@ export const botao_confirmar = style({
 });
 
 export const botao_cancelar = style({
-    backgroundColor: "gray",
+    backgroundColor: vars.color.border,
     color: "white",
     padding: "8px 12px",
     borderRadius: "4px",
@@ -222,9 +229,10 @@ export const botao_cancelar = style({
     width: "70px"
 });
 
-
 export const p_modal = style({
-    fontSize: "16px"
+    fontSize: "16px",
+    // color: vars.color.text,
+    // background: vars.color.background,
 });
 
 export const div_paragrafos_modal = style({
@@ -249,10 +257,16 @@ export const input_wrapper = style({
     padding: "8px 8px",
     borderRadius: "6px",
     fontSize: "12px",
-    background: "#0d1116",
-    color: "#FFF",
+    background: vars.color.surface,
+    color: vars.color.text,
     gap: "10px"
 });
+
+
+
+
+
+
 
 export const input_icon = style({
     // position: "absolute",
@@ -264,9 +278,33 @@ export const input_icon = style({
     // padding: "0rem 0.5rem"
 });
 
+
+
+
+export const botao_darkmode = style({
+    // backgroundColor: vars.color.success,
+    background: "#171d21",
+    // color: vars.color.text,
+    color: "#fafafa",
+    border: "none",
+    width:"fit-content",
+    borderRadius: "inherit",
+    padding: "8px",
+    cursor: "pointer",
+    fontSize: "12px",
+    height: "auto",
+    transition: "background-color 0.2s ease",
+    // selectors: {
+    //     '&:hover': {
+    //         backgroundColor: vars.color.hover,
+    //     },
+    // },
+});
+
+
 export const botao_criar = style({
-    backgroundColor: "#00a3359e",
-    color: "#fff",
+    backgroundColor: vars.color.success,
+    color: vars.color.text,
     border: "none",
     borderRadius: "4px",
     padding: "8px 16px",
@@ -276,23 +314,25 @@ export const botao_criar = style({
     transition: "background-color 0.2s ease",
     selectors: {
         '&:hover': {
-            backgroundColor: "#00eb4e9e",
+            backgroundColor: vars.color.hover,
         },
     },
 });
 
 export const label_criar_central = style({
     fontSize: "14px",
+    backgroundColor: vars.color.background,
+    color: vars.color.text,
 });
 
-
 export const div_criar_container = style({
-    background: "#22272c;",
+    background: vars.color.background,
     borderRadius: "2rem",
     height: "fit-content",
     padding: "3rem",
     margin: "0 auto",
-    fontSize: "14px"
+    fontSize: "14px",
+    border: `1px solid ${vars.color.border}`,
 });
 
 export const div_titulo_voltar = style({
@@ -305,7 +345,7 @@ export const botao_voltar = style({
     background: "none",
     border: "none",
     cursor: "pointer",
-    color: "#fff",
+    color: vars.color.text,
 });
 
 export const formulario = style({
@@ -324,30 +364,29 @@ export const input_form = style({
     padding: "8px 8px",
     fontSize: "14px",
     borderRadius: "4px",
-    // border: "1px solid #ccc",
-    // background: "#1c242e",
-    background: "#0d1116",
-    color: "#fff",
+    background: vars.color.surface,
+    color: vars.color.text,
 });
 
 export const erro_mensagem = style({
     fontSize: "12px",
-    color: "red",
+    color: vars.color.error,
+    background: vars.color.background,
 });
 
 export const botao_reverter = style({
     marginTop: "1rem",
     marginBottom: "1rem",
     padding: "0.9rem",
-    backgroundColor: "#00a3359e",
+    backgroundColor: vars.color.success,
     border: "none",
-    color: "white",
+    color: vars.color.text,
     cursor: "pointer",
     borderRadius: "4px",
     transition: "background-color 0.2s ease",
     selectors: {
         '&:hover': {
-            backgroundColor: "#00eb4e9e",
+            backgroundColor: vars.color.hover,
         },
     },
 });
@@ -356,11 +395,10 @@ export const select_estilizado = style({
     padding: "6px 6px",
     fontSize: "12px",
     borderRadius: "4px",
-    // border: "1px solid #ccc",
-    backgroundColor: "#0d1116",
-    color: "#fff",
+    backgroundColor: vars.color.surface,
+    color: vars.color.text,
     cursor: "pointer",
-    borderColor: "#888",
+    border: `1px solid ${vars.color.border}`,
     transition: "background 0.2s ease-in-out",
 });
 
@@ -368,17 +406,18 @@ export const select_estilizado_inline = style({
     padding: "8px 8px",
     fontSize: "12px",
     borderRadius: "4px",
-    // border: "1px solid #ccc",
-    backgroundColor: "#0d1116",
-    color: "#fff",
+    backgroundColor: vars.color.surface,
+    color: vars.color.text,
     cursor: "pointer",
-    borderColor: "#888",
+    border: `1px solid ${vars.color.border}`,
     transition: "background 0.2s ease-in-out",
 });
 
 export const paginacao_botoes = style({
     display: "flex",
     gap: "0.4rem",
+    color: vars.color.text,
+    background: vars.color.background,
 });
 
 export const botoes_header_tabela = style({
@@ -386,10 +425,9 @@ export const botoes_header_tabela = style({
     gap: "0.8rem",
 });
 
-
 export const botao_criar_csv = style({
     backgroundColor: "#0075a39e",
-    color: "#fff",
+    color: vars.color.text,
     border: "none",
     borderRadius: "4px",
     padding: "8px 16px",
@@ -408,13 +446,14 @@ export const registro_nao_encontrado = style({
     textAlign: "center",
     padding: "1rem",
     fontStyle: "italic",
-    background: "#1c242e"
+    background: vars.color.surface,
+    color: vars.color.text,
 });
 
 
 export const notificacao_card_sucesso = style({
     position: "fixed",
-    fontSize:"14px",
+    fontSize: "14px",
     top: "1rem",
     right: "1rem",
     backgroundColor: "#e0ffe0",
