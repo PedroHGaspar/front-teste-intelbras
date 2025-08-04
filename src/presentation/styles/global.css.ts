@@ -3,6 +3,7 @@ import { globalStyle } from '@vanilla-extract/css';
 import { BREAKPOINTS } from '@components/styles/theme/breakpoints';
 import { theme } from '@components/styles/theme/theme.css';
 
+
 globalStyle('*, *::before, *::after', {
   margin: 0,
   padding: 0,
@@ -37,5 +38,9 @@ globalStyle('body', {
   fontFamily: theme.fonts.primary,
   WebkitFontSmoothing: 'antialiased',
   backgroundColor: theme.colors.background,
-  color: theme.colors.primaryForeground
+  color: theme.colors.primaryForeground,
+});
+
+globalStyle('*', {
+  transition: 'background-color 0.2s ease, color 0.2s ease',
 });

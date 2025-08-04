@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from './themes.css';
 
 export const div_pai = style({
     width: "40%",
@@ -9,7 +10,7 @@ export const div_pai = style({
     margin: '0 auto',
     height: "fit-content",
     // marginTop: "10vh",
-    background: "#22272c;",
+    background: vars.color.background,
     borderRadius: "2rem"
 });
 

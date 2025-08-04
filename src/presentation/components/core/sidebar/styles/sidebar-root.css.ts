@@ -3,7 +3,8 @@ import { style } from '@vanilla-extract/css';
 import { theme } from '@components/styles/theme/theme.css';
 
 export const sidebarRootStyle = style({
-  height: '100%',
+  // height: '100%',
+  height: 'auto',
   display: 'flex',
   flexDirection: 'column',
   width: '13rem',

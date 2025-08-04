@@ -17,8 +17,19 @@ import { PenIcon } from "../../../presentation/components/icons/pen";
 import { useUndoStore } from "../../../presentation/components/utils/services/undoStore"; // novo Zustand
 import { UndoNotificacao } from "../../../presentation/components/undoNotificacao"; // novo componente
 import { NotificacaoSucesso } from "../../../presentation/components/NotificacaoSucesso";
+import { useTheme } from "../../../presentation/contexts/theme-context";
+import { MoonIcon } from "../../../presentation/components/icons/MoonIcon";
+import { SunIcon } from "../../../presentation/components/icons/SunIcon";
 
+function BotaoToggleTema() {
+    const { isDark, toggleTheme } = useTheme();
 
+    return (
+        <button className={style.botao_criar} onClick={toggleTheme} title="Alternar tema">
+            {isDark ? <SunIcon customSize="14" /> : <MoonIcon customSize="14" />}
+        </button>
+    );
+}
 
 
 
@@ -211,6 +222,7 @@ export default function CentralsPage() {
                         <button className={style.botao_criar} onClick={irParaCriarCentral}>
                             Criar Central
                         </button>
+                        <BotaoToggleTema />
                     </div>
                 </div>
             </div>
