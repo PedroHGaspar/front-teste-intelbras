@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCentrals } from "../../../presentation/components/utils/services/useCentrals";
 import { ChevronLeftIcon } from "../../../presentation/components/icons/chevron-left";
@@ -9,39 +9,36 @@ import { ChevronDownIcon } from "../../../presentation/components/icons/chevron-
 import { ChevronUpIcon } from "../../../presentation/components/icons/chevron-up";
 import { TrashIcon } from "../../../presentation/components/icons/trash";
 import { SearchIcon } from "../../../presentation/components/icons/search";
-import type { Central } from "../../../presentation/components/utils/services/useCentrals";
+import { PenIcon } from "../../../presentation/components/icons/pen";
 import { useRouter } from "next/navigation";
 import { useCentralStore } from "../../../presentation/components/utils/services/centralStore";
-import { PenIcon } from "../../../presentation/components/icons/pen";
-
-import { useUndoStore } from "../../../presentation/components/utils/services/undoStore"; // novo Zustand
-import { UndoNotificacao } from "../../../presentation/components/undoNotificacao"; // novo componente
+import { useUndoStore } from "../../../presentation/components/utils/services/undoStore";
+import { UndoNotificacao } from "../../../presentation/components/undoNotificacao";
 import { NotificacaoSucesso } from "../../../presentation/components/NotificacaoSucesso";
-
-
-import { BotaoToggleTema } from '../../../presentation/components/botaoDarkMode'
+import { BotaoToggleTema } from '../../../presentation/components/botaoDarkMode';
+import { FilterIcon } from "../../../presentation/components/icons/filter";
 
 
 import * as style from "../../../presentation/pages/home/styles/centrals-page.css";
+import type { Central } from "../../../presentation/components/utils/services/useCentrals";
 
 export default function CentralsPage() {
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(5);
     const [nomeHeader, setNomeHeader] = useState<"id" | "name" | "modelId">("id");
     const [sortOrdenacao, setsortOrdenacao] = useState<"asc" | "desc">("asc");
     const [search, setSearch] = useState("");
-    const [models, setModels] = useState<Record<number, string>>({}); // id e nome
-    const { setTotalCentrals } = useCentralStore();//zustand
-    const { totalCentrals } = useCentralStore();//vamos renderizar só qnd o totalCentras mudar, evitando ficar renderizando quando qualquer parte do estado mudar
+    const [selectedModelIds, setSelectedModelIds] = useState<number[]>([]); //armazena os modelos marcados pelo id(number)
+    const [models, setModels] = useState<Record<number, string>>({}); // id e nome dos modelos
+    const { setTotalCentrals } = useCentralStore(); // zustand para alterar o total de centrais
+    const { totalCentrals } = useCentralStore(); // vamos renderizar só qnd o totalCentrals mudar, evitando renderização desnecessária
+    const [centralSelecionada, setCentralSelecionada] = useState<Central>(); // tipagem da central vinda do backend
+    const [mostrarFiltros, setMostrarFiltros] = useState(false); // controle do menu suspenso
 
 
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(5); // itens por página
 
-
-    const [centralSelecionada, setCentralSelecionada] = useState<Central>();//importei a tipagem
     const queryClient = useQueryClient();
-
-    const { data } = useCentrals(page, limit);
-    const total_paginas = data ? Math.ceil(data.total / limit) : 1;
+    const { data } = useCentrals(); // agora busca todos os dados, sem paginação
 
     const router = useRouter();
     function irParaCriarCentral() {
@@ -50,23 +47,24 @@ export default function CentralsPage() {
 
     function proxima_pagina() {
         if (page < total_paginas) setPage((prev) => prev + 1);
-    };
+    }
 
     function pagina_anterior() {
         setPage((prev) => Math.max(prev - 1, 1));
-    };
+    }
 
     const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setLimit(Number(e.target.value));
-        setPage(1);
+        setPage(1); // sempre volta para a página 1 ao trocar o limite
     };
 
-    const handleSort = (key: "id" | "name" | "modelId") => { // adicionado "id" como opção válida
+    const handleSort = (key: "id" | "name" | "modelId") => {
+        // alterna entre asc e desc se já for a mesma coluna
         if (nomeHeader === key) {
             setsortOrdenacao((prev) => (prev === "asc" ? "desc" : "asc"));
         } else {
             setNomeHeader(key);
-            setsortOrdenacao("asc");//crescente por padrão
+            setsortOrdenacao("asc"); // crescente por padrão
         }
     };
 
@@ -78,21 +76,41 @@ export default function CentralsPage() {
                 modeloLista.forEach((modelo: any) => {
                     mapear[modelo.id] = modelo.name;
                 });
-                // console.log(mapear); -> aqui conseguimos ver que um novo objeto foi criado com id e nome sem as keys, apenas o value
+                // console.log(mapear); -> novo objeto foi criado com id e nome
                 setModels(mapear);
             });
     }, []); // meu [] faz salvar localmente a lista dos models
 
     useEffect(() => {
-        if (data?.total) {
-            setTotalCentrals(data.total);
+        if (data?.length) {
+            setTotalCentrals(data.length);
         }
-    }, [data?.total]);
+    }, [data?.length]);
 
-    function ordenarColunas() {
+    
+    let filtroRef = useRef<HTMLDivElement>(null); //se clicar fora fecha o card de filtros.
+    useEffect(() => {
+        let handleClickFora = (event: MouseEvent) => {
+            let clicouFora = filtroRef.current && !filtroRef.current.contains(event.target as Node);//se clicar fora fecha o card de filtros.
+            if (clicouFora) setMostrarFiltros(false);
+        };
+
+        document.addEventListener("mousedown", handleClickFora);
+        return () => document.removeEventListener("mousedown", handleClickFora);
+    }, []);
+
+
+    function iconeOrdenarColunas(column: string) {
+        if (nomeHeader === column) {
+            return sortOrdenacao === "asc" ? <ChevronUpIcon customSize="10" /> : <ChevronDownIcon customSize="10" />;
+        }
+        return <ChevronDownIcon customSize="10" />;
+    }
+
+    function ordenarColunas(lista: Central[]) {
         if (!data) return [];
 
-        const sorted = [...data.data];
+        const sorted = [...lista];
 
         if (nomeHeader === "name") {
             let collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });//https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
@@ -118,27 +136,50 @@ export default function CentralsPage() {
         return sorted;
     };
 
-    function iconeOrdenarColunas(column: string) {
-        if (nomeHeader === column) {
-            if (sortOrdenacao === "asc") {
-                return <ChevronUpIcon customSize="10" />;
-            } else {
-                return <ChevronDownIcon customSize="10" />;
-            }
+    function linhasFiltradas(): Central[] {
+        if (!data) return [];
+
+        let resultado = [...data];
+
+        if (search.trim() !== "") {
+            const termo = search.toLowerCase();
+            resultado = resultado.filter((central) =>
+                central.name.toLowerCase().includes(termo) ||
+                models[central.modelId]?.toLowerCase().includes(termo)// input de busca
+            );
         }
 
-        return <ChevronDownIcon customSize="10" />;
+        if (selectedModelIds.length > 0) {
+            resultado = resultado.filter((central) =>
+                selectedModelIds.includes(central.modelId) //modelos
+            );
+        }
+
+        return ordenarColunas(resultado);
     }
 
-    function linhasFiltradas() {
-        let termo_filtrado = search.toLowerCase();
+    let linhasPaginadas = linhasFiltradas().slice((page - 1) * limit, page * limit);
+    let total_paginas = Math.ceil(linhasFiltradas().length / limit);
 
-        return ordenarColunas().filter((central) => {
-            return (
-                central.name.toLowerCase().includes(termo_filtrado) ||
-                models[central.modelId]?.toLowerCase().includes(termo_filtrado)
-            );
-        });
+    function alternarModeloFiltro(modelId: number) {
+        setPage(1); // reseta a página ao mudar o filtro
+        setSelectedModelIds((prev) => {
+            let jaSelecionado = prev.includes(modelId);
+
+            if (jaSelecionado) {
+                let novoArray = prev.filter((id) => id !== modelId);
+                return novoArray;
+            } else {
+                let novoArray = [...prev, modelId];
+                return novoArray;
+            }
+        });//basicamente criei uma copia do array antigo, mas agora com os itens anteriores selecionados ou sem os itens anteriores selecionados 
+    }
+
+    function limparFiltros() {
+        setSelectedModelIds([]);
+        setSearch("");
+        setPage(1);
     }
 
     function excluirCentral() {
@@ -152,7 +193,7 @@ export default function CentralsPage() {
     }
 
     function exportarParaCSV() {
-        let dados = linhasFiltradas(); //filtro e ordenação ja foram feitos, ou seja, se nós ordenarmos o nome do maior pro menor irá aparecer assim no excel, assim como se ordernarmos do menor pro maior também irá já com a ordenação pro arquivo de download
+        let dados = linhasFiltradas(); // filtro e ordenação já foram feitos
 
         let headers_tabela = ["Nome", "MAC", "Modelo"];
         let linhas = dados.map((central) => {
@@ -163,15 +204,15 @@ export default function CentralsPage() {
         });
 
         let conteudo_excel_csv = [
-            headers_tabela.join(","),
-            ...linhas.map((linha) => linha.map((campo) => `"${campo}"`).join(",")),
-        ].join("\n"); //transformar td em string por que se nao teremos só 1 linha gigante no excel, assim a gnt quebra as linhas 
+            headers_tabela.join(","), // cabeçalhos
+            ...linhas.map((linha) => linha.map((campo) => `"${campo}"`).join(",")), // valores com aspas
+        ].join("\n"); // quebra linhas manualmente para não virar uma linha só
 
         let hoje = new Date().toISOString().split("T")[0];
         let nome_arquivo = `centrals-export-${hoje}.csv`;
 
         // blob é a melhor alternativa nesse caso -> https://developer.mozilla.org/en-US/docs/Web/API/Blob
-        let blob = new Blob([conteudo_excel_csv], { type: "text/csv;charset=utf-8;" });//evita problam de acento
+        let blob = new Blob([conteudo_excel_csv], { type: "text/csv;charset=utf-8;" }); // evita problema de acento
         let link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.setAttribute("download", nome_arquivo);
@@ -180,49 +221,83 @@ export default function CentralsPage() {
         document.body.removeChild(link);
     }
 
-
-
-
     return (
         <div className={style.div_pai}>
-            {/* <BotaoToggleTema /> */}
+            <BotaoToggleTema />
             <div className={style.titulo_subtitulo}>
                 <h1 className={style.titulo_centrais}>Centrais</h1>
-                <p className={style.paragrafo_gerenciamento}>
-                    Gerenciamento de Centrais
-                </p>
+                <p className={style.paragrafo_gerenciamento}>Gerenciamento de Centrais</p>
                 <p className={style.paragrafo_total_centrais_cadastradas}>
                     Total de centrais cadastradas:<strong> {totalCentrals}</strong>
                 </p>
             </div>
 
-            <div className={style.paginacao_busca}>
-                {/* <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} /> */}
-                <div className={style.container_busca_criar}>
+            <div className={style.container_acoes_topo}>
+                <div className={style.grupo_busca_filtro}>
                     <div className={style.input_wrapper}>
-                        <input type="text" placeholder="Busca por nome ou modelo" value={search} onChange={(e) => setSearch(e.target.value)} className={style.input_busca} />
+                        <input
+                            type="text"
+                            placeholder="Busca por nome ou modelo"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className={style.input_busca}
+                        />
                         <div className={style.input_icon}>
                             <SearchIcon customSize="14" />
                         </div>
                     </div>
-                    <div className={style.botoes_header_tabela}>
-                        <button className={style.botao_criar_csv} onClick={exportarParaCSV}>
-                            Exportar CSV
+
+                    <div className={style.container_filtro}>
+                        <button
+                            onClick={() => setMostrarFiltros(!mostrarFiltros)}
+                            className={style.botao_filtro_modelos}
+                        >
+                            <FilterIcon customSize="16" />
+                            {/* Filtrar modelos */}
                         </button>
-                        <button className={style.botao_criar} onClick={irParaCriarCentral}>
-                            Criar Central
-                        </button>
-                        {/* <BotaoToggleTema /> */}
+
+                        {mostrarFiltros && (
+                            <div ref={filtroRef} className={style.popover_filtro}>
+                                <p className={style.titulo_filtro}>Modelos:</p>
+                                <div className={style.lista_checkbox_filtros}>
+                                    {Object.entries(models).map(([id, name]) => (
+                                        <label key={id} className={style.checkbox_filtro_modelo}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedModelIds.includes(Number(id))}
+                                                onChange={() => alternarModeloFiltro(Number(id))}
+                                                style={{ marginRight: '6px' }}
+                                            />
+                                            {name}
+                                        </label>
+                                    ))}
+                                </div>
+
+                                {selectedModelIds.length > 0 && (
+                                    <button onClick={limparFiltros} className={style.botao_limpar_filtro}>
+                                        Limpar filtros
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
+
+                    {selectedModelIds.length > 0 && (
+                        <button onClick={limparFiltros} className={style.botao_limpar_filtro}>
+                            Limpar filtros
+                        </button>
+                    )}
+                </div>
+
+                <div className={style.botoes_header_tabela}>
+                    <button className={style.botao_criar_csv} onClick={exportarParaCSV}>Exportar CSV</button>
+                    <button className={style.botao_criar} onClick={irParaCriarCentral}>Criar Central</button>
                 </div>
             </div>
 
             <table className={style.table}>
                 <thead>
                     <tr>
-                        {/* <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("id")}>
-                            ID {iconeOrdenarColunas("id")}
-                        </th> */}
                         <th className={`${style.header_tabela} ${style.header_clicavel}`} onClick={() => handleSort("name")}>
                             Nome {iconeOrdenarColunas("name")}
                         </th>
@@ -235,17 +310,15 @@ export default function CentralsPage() {
                 </thead>
 
                 <tbody>
-                    {linhasFiltradas().length === 0 ? (
+                    {linhasPaginadas.length === 0 ? (
                         <tr>
-                            <td colSpan={4}
-                                className={style.registro_nao_encontrado}>
+                            <td colSpan={4} className={style.registro_nao_encontrado}>
                                 Não há registros encontrados.
                             </td>
                         </tr>
                     ) : (
-                        linhasFiltradas().map((central) => (
+                        linhasPaginadas.map((central) => (
                             <tr key={central.id} className={style.linha_tr_tabela}>
-                                {/* <td className={style.colunas_tabela}>{central.id}</td> */}
                                 <td className={style.colunas_tabela}>{central.name}</td>
                                 <td className={style.colunas_tabela_modeloId}>
                                     {models[central.modelId] || central.modelId}
@@ -263,7 +336,6 @@ export default function CentralsPage() {
                         ))
                     )}
                 </tbody>
-
             </table>
 
             <div className={style.container_paginacao}>
@@ -279,30 +351,22 @@ export default function CentralsPage() {
 
                 <div className={style.paginacao_botoes}>
                     <button onClick={() => setPage(1)} disabled={page === 1} className={style.botao_paginacao} title="Primeira página">
-                        <ChevronLeftIcon customSize="10" />
-                        <ChevronLeftIcon customSize="10" />
+                        <ChevronLeftIcon customSize="10" /><ChevronLeftIcon customSize="10" />
                     </button>
-
                     <button onClick={pagina_anterior} disabled={page === 1} className={style.botao_paginacao} title="Página anterior">
                         <ChevronLeftIcon customSize="10" />
                     </button>
-
                     <button onClick={proxima_pagina} disabled={page >= total_paginas} className={style.botao_paginacao} title="Próxima página">
                         <ChevronRightIcon customSize="10" />
                     </button>
-
                     <button onClick={() => setPage(total_paginas)} disabled={page >= total_paginas} className={style.botao_paginacao} title="Última página">
-                        <ChevronRightIcon customSize="10" />
-                        <ChevronRightIcon customSize="10" />
+                        <ChevronRightIcon customSize="10" /><ChevronRightIcon customSize="10" />
                     </button>
                 </div>
             </div>
 
-
-            <div
-                className={`${style.modal_overlay} ${centralSelecionada ? style.modal_aberto : ""}`}>
-                <div
-                    className={`${style.modal_conteudo} ${centralSelecionada ? style.modal_conteudo_visivel : ""}`}>
+            <div className={`${style.modal_overlay} ${centralSelecionada ? style.modal_aberto : ""}`}>
+                <div className={`${style.modal_conteudo} ${centralSelecionada ? style.modal_conteudo_visivel : ""}`}>
                     {centralSelecionada && (
                         <>
                             <h1>Confirmar a exclusão da seguinte central:</h1>
@@ -312,7 +376,6 @@ export default function CentralsPage() {
                                 <p className={style.p_modal}><strong>Modelo:</strong> {models[centralSelecionada.modelId]}</p>
                                 <p className={style.p_modal}><strong>MAC:</strong> {centralSelecionada.mac}</p>
                             </div>
-
                             <div className={style.modal_botoes}>
                                 <button onClick={excluirCentral} className={style.botao_confirmar}>Sim</button>
                                 <button onClick={() => setCentralSelecionada(undefined)} className={style.botao_cancelar}>Não</button>
@@ -321,8 +384,10 @@ export default function CentralsPage() {
                     )}
                 </div>
             </div>
+
             <UndoNotificacao />
             <NotificacaoSucesso />
         </div>
     );
+
 }

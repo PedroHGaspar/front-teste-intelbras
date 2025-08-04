@@ -11,12 +11,17 @@ export const HomePage = () => {
 
       <p className={styles.paragrafo_home}>
         Obrigado pela oportunidade de participar deste desafio técnico!<br /><br />
-        Eu separei meu desenvolvimento em 4 etapas: funcionalidades obrigatórias, limpeza de código, estilização e funcionalidades extras.<br /><br />
-        O maior desafio foi na lógica de reversão de exclusão com múltiplos cards isolados, foi o que eu levei mais tempo pra fazer por conta de achar a maneira certa de isolar os cards pra que cada um se comportasse de forma única.
+        Eu separei meu desenvolvimento em 4 etapas: funcionalidades obrigatórias, limpeza de código, estilização e funcionalidades extras.
         <br /><br />
-        Posso esclarecer sobre qualquer ponto do projeto, explicar minhas decisões ou melhorias futuras.
+        Tive 3 grandes desafios:
+        <br />
+        Na lógica de reversão de exclusão com múltiplos cards isolados, foi o que eu levei mais tempo pra fazer por conta de achar a maneira certa de isolar os cards pra que cada um se comportasse de forma única.
+        <br />
+        Inventei de querer fazer darkmode e não ficou do jeito que eu esperava por conta das cores, me faltou um pouco de criatividade pra achar uma "sinfonia" entre as cores para fazer um darkmode bonito aonde as cores conversassem! Eu pessoalmente gostei mais do modo escuro (o modo claro ficou feio kkk).
+        <br />
+        Deixei pra fazer os filtros no último dia (segunda feira), pois era um desafio extra. Acabou que foi ótimo por que eu tive que refazer minha lógica do useCentrals pois encontrei um problema na ordenação e na busca por nome/modeloId. No final deu certo e consegui executar da forma correta.
         <br /><br />
-        E um breve disclaimer sobre algo que tentei implementar: darkmode. A lógica toda existe, os componentes existem e tudo mais, mas não ficou muito bom com as cores que foram apresentadas na paleta. Para não mudar as cores da paleta acabei comentando o componente, mas dá pra descomentar e ver funcionando caso queiram. Na minha humilde opinião tudo deveria ser no modo escuro :D
+        É isso, qualquer dúvida estou a disposição, ageradeço pela oportunidade de fazer o teste :D
       </p>
     </div>
   );

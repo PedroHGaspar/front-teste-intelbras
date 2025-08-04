@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from './themes.css';
 
 export const div_pai = style({
-    width: "40%",
+    width: "50%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
@@ -287,7 +287,7 @@ export const botao_darkmode = style({
     // color: vars.color.text,
     color: "#fafafa",
     border: "none",
-    width:"fit-content",
+    width: "fit-content",
     borderRadius: "inherit",
     padding: "8px",
     cursor: "pointer",
@@ -465,4 +465,96 @@ export const notificacao_card_sucesso = style({
     alignItems: "center",
     gap: "1rem",
     zIndex: 999,
+});
+
+export const container_filtro = style({
+    position: "relative",
+    // marginBottom: "1rem",
+});
+
+export const botao_filtro_modelos = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "1.5rem",
+    fontSize: "14px",
+    // backgroundColor: "transparent",
+    background: vars.color.surface,
+    border: `1px solid ${vars.color.border}`,
+    borderRadius: "4px",
+    padding: "8px 8px",
+    cursor: "pointer",
+    color: vars.color.text,
+    transition: "background 0.2s ease-in-out",
+    // selectors: {
+    //     "&:hover": {
+    //         backgroundColor: "#3c4855ff",
+    //     },
+    // },
+});
+
+export const popover_filtro = style({
+    position: "absolute",
+    top: "4.5rem",
+    left: 0,
+    backgroundColor: vars.color.surface,
+    color: vars.color.text,
+    border: `1px solid ${vars.color.border}`,
+    borderRadius: "6px",
+    padding: "1.2rem",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    zIndex: 10,
+    width: "200px",
+});
+
+export const titulo_filtro = style({
+    fontWeight: "bold",
+    fontSize: "14px",
+    marginBottom: "1.5rem",
+});
+
+export const lista_checkbox_filtros = style({
+    maxHeight: "200px",
+    overflowY: "auto",
+    marginBottom: "1.5rem",
+});
+
+export const checkbox_filtro_modelo = style({
+    fontSize: "13px",
+    display: "block",
+    marginBottom: "0.3rem",
+});
+
+export const botao_limpar_filtro = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    fontSize: "14px",
+    background: "#0086bb9e",
+    border: `1px solid ${vars.color.border}`,
+    borderRadius: "4px",
+    padding: "8px 8px",
+    cursor: "pointer",
+    color: vars.color.text,
+    transition: "background 0.2s ease-in-out",
+});
+
+export const grupo_filtro_acoes = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem"
+});
+
+export const container_acoes_topo = style({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: "1rem",
+});
+
+export const grupo_busca_filtro = style({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.8rem",
+    flexWrap: "wrap",
 });
