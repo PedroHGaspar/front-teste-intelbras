@@ -21,7 +21,7 @@ export const HomePage = () => {
         <br />
         Deixei pra fazer os filtros no último dia (segunda feira), pois era um desafio extra. Acabou que foi ótimo por que eu tive que refazer minha lógica do useCentrals pois encontrei um problema na ordenação e na busca por nome/modeloId. No final deu certo e consegui executar da forma correta.
         <br /><br />
-        É isso, qualquer dúvida estou a disposição, ageradeço pela oportunidade de fazer o teste :D
+        É isso, qualquer dúvida estou a disposição :D
       </p>
     </div>
   );
